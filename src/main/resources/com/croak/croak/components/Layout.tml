@@ -1,88 +1,82 @@
 <!DOCTYPE html>
-<!--
 
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry:parameter">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>${title}</title>
 
-Title      : Concrete (modified for Tapestry)
-Version    : 1.0
-Released   : 20080825
-Description: A Web 2.0 design with fluid width suitable for blogs and small websites.
--->
-        <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:p="tapestry:parameter">
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-        <title>${title}</title>
-    </head>
-    <body>
-        <!-- start header -->
-        <div class="header">
-            <div class="logo">
-                <h1>
-                    <t:pagelink page="index">com.croak.croak:croak</t:pagelink>
-                    &nbsp;
-                    version ${appVersion}
-                </h1>
-            </div>
-            <div class="menu">
-                <ul>
-                    <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
-                        <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- end header -->
-        <!-- start page -->
-        <div class="page">
-            <!-- start sidebar -->
-            <div class="sidebar">
-                <ul>
-                    <li class="search" style="background: none;">
-                    </li>
-                    <li>
-                        <t:alerts/>
-                    </li>
-                    <li t:type="if" test="sidebar">
-                        <h2>${sidebarTitle}</h2>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="#4CAF50" />
 
-                        <div class="sidebar-content">
-                            <t:delegate to="sidebar"/>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!-- end sidebar -->
-            <!-- start content -->
-            <div class="content">
-                <div class="post">
-                    <div class="title">
-                        <h2>${title}</h2>
-                    </div>
-                    <div class="entry">
-                        <t:body/>
-                    </div>
-                </div>
-            </div>
-            <!-- end content -->
-            <br style="clear: both;"/>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/packery.pkgd.min.js"></script>
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <nav class="navbar-fixed green">
+      <div class="nav-wrapper">
+        <t:pagelink page="home" class="brand-logo"><img src="img/croak.png" class="hide-on-small-only" /> Croak</t:pagelink>
+
+        <ul id="menu" class="container hide-on-small-only">
+          <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
+            <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
+          </li>
+        </ul>
+        <ul class="right">
+          <li><a href="#/search"><i class="mdi-action-search"></i></a></li>
+          <li><a href="#" class="dropbdown-button" data-activates="more"><i class="mdi-navigation-more-vert"></i></a></li>
+        </ul>
+        <div class="row hide-on-med-and-up">
+          <div class="col s12">
+            <ul class="tabs" id="nav-mobile">
+              <li t:type="loop" source="pageNames" value="pageName" class="tab col s4">
+                <t:pagelink class="prop:classForPageName" page="prop:pageName">${pageName}</t:pagelink>
+              </li>
+            </ul>
+          </div>
         </div>
-        <!-- end page -->
-        <!-- start footer -->
-        <div class="footer">
-            <p class="legal">
-                &copy;2013 com.croak.croak. All Rights Reserved.
-                &nbsp;&nbsp;&bull;&nbsp;&nbsp;
-                Design by
-                <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>
-                &nbsp;&nbsp;&bull;&nbsp;&nbsp;
-                Icons by
-                <a href="http://famfamfam.com/">FAMFAMFAM</a>.
-            </p>
+      </div>
+    </nav>
+    <div class="after-nav"></div>
+
+    <!-- FAB -->
+    <div id="fab" class="fixed-action-btn">
+      <button class="btn-floating btn-large waves-effect waves-light green modal-trigger">
+        <i class="large mdi-editor-mode-edit"></i>
+      </button>
+    </div>
+
+    <!-- MODAL -->
+    <div id="croak-modal" class="modal">
+      <div class="modal-content">
+        <h4>Write croak</h4>
+        <div class="row">
+          <div class="input-field col s12">
+            <form id="croak-form">
+              <textarea id="textarea" class="materialize-textarea" length="150"></textarea>
+              <label for="textarea">Text</label>
+            </form>
+          </div>
         </div>
-        <!-- end footer -->
-    </body>
+      </div>
+      <div class="modal-footer" style="background: none">
+        <button id="croak-it" type="submit" form="croak-form" class="waves-effect btn-flat" value="Croak it!">Croak it!</button>
+      </div>
+    </div>
+
+    <!-- SECTION -->
+    <section class="container" style="padding-top: 20px">
+      <t:body />
+    </section>
+
+  </body>
 </html>
