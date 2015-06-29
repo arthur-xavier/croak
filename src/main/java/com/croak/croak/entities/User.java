@@ -8,14 +8,27 @@ import java.util.Set;
 public class User {
 
   @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
   private long id;
-  private String username;    // required, unique
-  private String password;    // required
-  private String firstName;   // required
-  private String lastName;    // required
-  private String email;       // required, unique
+
+  @Column(nullable=false,length=50,unique=true)
+  private String username;
+
+  @Column(nullable=false)
+  private String password;
+
+  @Column(name="first_name",nullable=false,length=50)
+  private String firstName;
+  @Column(name="last_name",nullable=false,length=50)
+  private String lastName;
+
+  @Column(nullable=false,unique=true)
+  private String email;
+  private String avatar;
 
   // set of users who User follows
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name="friends",joinColumns = { @JoinColumn(name="subscriber") },inverseJoinColumns = @JoinColumn(name="follower"))
   private Set<User> subscriptions = new HashSet<User>();
 
   /**
@@ -31,39 +44,46 @@ public class User {
     this.username = username;
   }
 
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  /**
+   * Create a new instance and set the username, first and last names
+   * @param username login name for user
+   * @param firstName user's first name
+   * @param lastName user's last name
+   */
+  public User(final String username, final String firstName, final String lastName) {
+    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
   public Long getId() {
     return id;
   }
 
-  @Column(nullable=false,length=50,unique=true)
   public String getUsername() {
     return username;
   }
-  @Column(nullable=false)
   public String getPassword() {
     return password;
   }
 
-  @Column(name="first_name",nullable=false,length=50)
   public String getFirstName() {
     return firstName;
   }
-  @Column(name="last_name",nullable=false,length=50)
   public String getLastName() {
     return lastName;
   }
 
-  @Column(nullable=false,unique=true)
   public String getEmail() {
     return email;
   }
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name="friends",joinColumns = { @JoinColumn(name="subscriber") },inverseJoinColumns = @JoinColumn(name="follower"))
-  public Set<Role> getSubscriptions() {
-    return subscription;
+  public String getAvatar() {
+    return avatar;
+  }
+
+  public Set<User> getSubscriptions() {
+    return this.subscriptions;
   }
 
   /**
@@ -93,6 +113,10 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public void setAvatar(String avatar) {
+    this.avatar = avatar;
   }
 
   /**

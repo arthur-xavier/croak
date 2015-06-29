@@ -14,34 +14,28 @@ var croaks = [
   { text: "on some real young trill shit doe. I miss y'all. #Hooligans #Love #Peace #TacoBell #GameOfThrones #Hashtag #HashBrowns",
     avatar: "img/jackie-chan.jpg",
     color: "#fafafa",
-    author: "Mr. Nice Guy",
-    user: "EyeOfJackieChan" },
+    author: { firstName: "Mr.", lastName: "Nice Guy", username: "EyeOfJackieChan" } },
   { text: "Hey you! Out there in the cold, getting lonely getting old, can you feel me?",
     avatar: "img/roger-waters.jpg",
     color: "#fffde7",
-    author: "Roger Waters",
-    user: "rogerwaters" },
+    author: { firstName: "Roger", lastName: "Waters", username: "rogerwaters" } },
   { text: "Here's what I said yesterday: We are blessed with the most beautiful God-given landscape in the entire world... We have to be good stewards for it.",
     avatar: "img/barack-obama.jpg",
     color: "#f3e5f5",
-    author: "Barack Obama",
-    user: "BarackObama" },
+    author: { firstName: "Barack", lastName: "Obama", username: "BarackObama" } },
   { text: "I think I'm addicted to #croaking #cantstop",
     avatar: "img/bill-gates.jpg",
     color: "#e1f5fe",
-    author: "Bill Gates",
-    user: "BillGates" },
+    author: { firstName: "Bill", lastName: "Gates", username: "BillGates" } },
   { text: "Video fast fertig geschnitten & internet hier ist grad nice, kommt also gleich online :)",
     avatar: "img/simon-unge.jpg",
     color: "#f1f8e9",
-    author: "Simon Unge",
-    user: "unge" },
+    author: { firstName: "Simon", lastName: "Unge", username: "unge" } },
   { big: true,
     text: "Did you know that croaking is awesome? I really think that you all should try it! #croaking #awesome",
     avatar: "img/jack-dawson.jpg",
     color: "#fff3e0",
-    author: "Jack Dawson",
-    user: "JackDawson_pa" }
+    author: { firstName: "Jack", lastName: "Dawson", username: "JackDawson_pa" } }
 ];
 
 var formatCroak = function(text) {
@@ -57,8 +51,8 @@ var getCroak = function(croak) {
   return '<div class="' + c + '"><article class="card-panel z-depth-1-half" style="background-color: ' + (croak.color || randomColor()) + '">' +
          '<p>' + formatCroak($('<div/>').text(croak.text).html()) + '</p>' +
          '<div class="author">' +
-         '<div class="left circle avatar" style="background-image: url(' + croak.avatar + ')"></div>' +
-         '<a href="/@' + croak.user + '" class="right tooltipped" data-tooltip="@' + croak.user + '">&mdash; ' + croak.author + '</a>' +
+         '<div class="left circle avatar" style="background-image: url(' + croak.author.avatar + ')"></div>' +
+         '<a href="/@' + croak.author.username + '" class="right tooltipped" data-tooltip="@' + croak.author.username + '">&mdash; ' + croak.author.firstName + ' ' + croak.author.lastName + '</a>' +
          '</div></article>';
 };
 
@@ -80,7 +74,26 @@ $(document).ready(function() {
   };
 
   // populate croaks
-  croaks.forEach(createCroak);
+  //croaks.forEach(createCroak);
+  $.ajax({
+    url: '/croak/rest/croak',
+    contentType: 'application/json',
+    method: 'GET',
+    beforeSend: function() {
+      $croaks.html('<div class="col s12 center">' +
+                     '<div class="preloader-wrapper big active">' +
+                       '<div class="spinner-layer spinner-blue-only">' +
+                         '<div class="circle-clipper left"><div class="circle"></div></div>' +
+                         '<div class="gap-patch"><div class="circle"></div></div>' +
+                         '<div class="circle-clipper right"><div class="circle"></div></div>' +
+                       '</div>' +
+                     '</div>' +
+                   '</div>');
+    }
+  }).done(function(croaks) {
+    $croaks.html('');
+    croaks.forEach(createCroak);
+  });
 
   // croak form submit
   $("#croak-form").submit(function(e) {
@@ -95,7 +108,7 @@ $(document).ready(function() {
         big: true,
         text: $("#textarea").val(),
         color: $("#croak-modal").css('background-color'),
-        avatar: 'img/mustermann.jpg', 
+        avatar: 'img/mustermann.jpg',
         author: 'Max Mustermann',
         user: 'mustermann'
       });

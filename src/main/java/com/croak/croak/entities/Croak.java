@@ -6,9 +6,18 @@ import javax.persistence.*;
 public class Croak {
 
   @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
   private long id;
-  private String text;  // required
-  private User author;  // required
+
+  @Column(nullable=false,length=150)
+  private String text;
+
+  @Column(nullable=false,length=7)
+  private String color;
+
+  @ManyToOne(optional=false)
+  @JoinColumn(name="author")
+  private User author;
 
   /**
    * Default constructor
@@ -22,21 +31,34 @@ public class Croak {
    */
   public Croak(final String text, final User author) {
     this.text = text;
+    this.color = "#ffffff";
     this.author = author;
   }
 
-  @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
+  /**
+   * Create a new instance and set the text, color and author
+   * @param text body raw text
+   * @param color background color for the croak
+   * @param author user who wrote the croak
+   */
+  public Croak(final String text, final String color, final User author) {
+    this.text = text;
+    this.color = color;
+    this.author = author;
+  }
+
   public Long getId() {
     return id;
   }
 
-  @Column(nullable=false,length=150)
   public String getText() {
     return text;
   }
 
-  @Column(nullable=false)
+  public String getColor() {
+    return color;
+  }
+
   public User getAuthor() {
     return author;
   }
@@ -45,7 +67,11 @@ public class Croak {
   public void setText(String text) {
     this.text = text;
   }
-  
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+
   public void setAuthor(User user) {
     this.author = author;
   }

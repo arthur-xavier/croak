@@ -23,6 +23,36 @@
       <version>${tapestry-release-version}</version>
     </dependency>
 
+    <!-- Hibernate and HSQLDB -->
+    <dependency>
+      <groupId>org.apache.tapestry</groupId>
+      <artifactId>tapestry-hibernate</artifactId>
+      <version>${tapestry-release-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>${hsqldb-release-version}</version>
+    </dependency>
+
+    <!-- RESTful web services -->
+		<!-- http://tynamo.org/tapestry-resteasy+guide -->
+		<dependency>
+			<groupId>org.tynamo</groupId>
+			<artifactId>tapestry-resteasy</artifactId>
+			<version>${tapestry-resteasy-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.tynamo</groupId>
+			<artifactId>tapestry-model-core</artifactId>
+			<version>${tapestry-model-core-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>${resteasy-jackson-provider-version}</version>
+		</dependency>
+
     <!-- Uncomment this to add support for file uploads:
 
      <dependency>
@@ -137,9 +167,13 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
   </repositories>
 
   <properties>
+    <hsqldb-release-version>2.3.2</hsqldb-release-version>
     <tapestry-release-version>5.3.8</tapestry-release-version>
     <servlet-api-release-version>2.5</servlet-api-release-version>
     <testng-release-version>5.14.10</testng-release-version>
     <easymock-release-version>3.0</easymock-release-version>
+		<tapestry-resteasy-version>0.4.0</tapestry-resteasy-version>
+		<tapestry-model-core-version>0.5.2</tapestry-model-core-version>
+		<resteasy-jackson-provider-version>3.0.11.Final</resteasy-jackson-provider-version>
   </properties>
 </project>
