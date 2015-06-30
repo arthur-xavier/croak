@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 
 import com.croak.croak.rest.CroakResource;
 import com.croak.croak.rest.CroakResourceImpl;
+import com.croak.croak.rest.UserResource;
+import com.croak.croak.rest.UserResourceImpl;
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
@@ -28,9 +30,11 @@ public class AppModule
 
     @Contribute(javax.ws.rs.core.Application.class)
     public static void configureRestResources(Configuration<Object> singletons,
-      CroakResource croakResource)
+      CroakResource croakResource,
+      UserResource userResource)
     {
         singletons.add(croakResource);
+        singletons.add(userResource);
     }
 
     public static void bind(ServiceBinder binder)
@@ -38,6 +42,7 @@ public class AppModule
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
         binder.bind(CroakResource.class, CroakResourceImpl.class);
+        binder.bind(UserResource.class, UserResourceImpl.class);
 
         // Make bind() calls on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation

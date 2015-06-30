@@ -1,8 +1,12 @@
 package com.croak.croak.entities;
 
 import javax.persistence.*;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 @Entity
+@JsonDeserialize(using = CroakDeserializer.class)
+@JsonSerialize(using = CroakSerializer.class)
 public class Croak {
 
   @Id

@@ -49,11 +49,13 @@ public class User {
    * @param username login name for user
    * @param firstName user's first name
    * @param lastName user's last name
+   * @param avatar user's avatar url
    */
-  public User(final String username, final String firstName, final String lastName) {
+  public User(final String username, final String firstName, final String lastName, final String avatar) {
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.avatar = avatar;
   }
 
   public Long getId() {
@@ -131,6 +133,13 @@ public class User {
     }
     final User user = (User)o;
     return !(username != null ? !username.equals(user.getUsername()) : user.getUsername() != null);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public String toString() {
+    return this.username;
   }
 
   /**
