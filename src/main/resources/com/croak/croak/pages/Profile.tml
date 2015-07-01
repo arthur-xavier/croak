@@ -1,4 +1,4 @@
-<html t:type="layout" title="Contact com.croak.croak"
+<html t:type="layout" title="Croak - Profile"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 

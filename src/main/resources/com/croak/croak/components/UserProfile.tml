@@ -1,0 +1,23 @@
+<div id="profile" class="card z-depth-1-half" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry:parameter">
+  <div class="row card-content">
+    <div class="col s3">
+      <img id="avatar" src="${user.avatar}" alt="" class="circle responsive-img" />
+    </div>
+    <div class="col s9">
+      <i class="mdi-navigation-more-vert right"></i>
+      <a href="profile.html" class="card-title grey-text text-darken-4 tooltipped"
+          data-position="right" data-tooltip="@${user.username}">
+         ${user.firstName} ${user.lastName}
+      </a>
+      <blockquote class="grey-text">"Totally awesome!"</blockquote>
+
+      <div style="margin-top: 16px">
+        <p>Follows ${followingNumber}</p>
+        <p>${followersNumber} followers</p>
+        <p>${croaksNumber} croaks</p>
+      </div>
+    </div>
+  </div>
+</div>
