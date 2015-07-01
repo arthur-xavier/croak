@@ -36,6 +36,14 @@ public interface CroakResource {
   List<Croak> getCroaksByUser(@PathParam("username") String username);
 
   /**
+   * Return the list of croaks created by the users who @username follows
+   * @return list of croaks @username can see
+   */
+  @GET
+  @Path("for/{username}")
+  List<Croak> getCroaksForUser(@PathParam("username") String username);
+
+  /**
    * Find a croak with a specific id number
    * @param id croak's id to search for
    * @return croak found whose id = id

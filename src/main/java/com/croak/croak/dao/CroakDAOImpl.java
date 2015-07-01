@@ -33,6 +33,11 @@ public class CroakDAOImpl implements CroakDAO {
     return cs;
   }
 
+  public List<Croak> getCroaksForUser(String username) {
+    // TODO: implement com.croak.croak.dao.CroakDAOImpl.getCroaksForUser
+    return null;
+  }
+
   public Croak getCroak(Long id) {
     return croaks.get(id);
   }
@@ -49,7 +54,7 @@ public class CroakDAOImpl implements CroakDAO {
   }
 
   public List<Croak> searchCroaks(String query) {
-    // TODO: implement this
+    // TODO: implement com.croak.croak.dao.CroakDAOImpl.searchCroaks
     return null;
   }
 }

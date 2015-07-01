@@ -8,7 +8,7 @@
     <div class="col s9">
       <i class="mdi-navigation-more-vert right"></i>
       <a href="profile.html" class="card-title grey-text text-darken-4 tooltipped"
-          data-position="right" data-tooltip="@${user.username}">
+          data-position="bottom" data-tooltip="@${user.username}">
          ${user.firstName} ${user.lastName}
       </a>
       <blockquote class="grey-text">"Totally awesome!"</blockquote>

@@ -45,6 +45,6 @@ public class Layout {
   }
 
   public String[] getPageNames() {
-    return new String[]{"Home", "Friends", "Profile"};
+    return new String[]{"Index", "Friends", "Profile"};
   }
 }

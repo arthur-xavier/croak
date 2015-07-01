@@ -7,7 +7,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import com.croak.croak.entities.User;
 import com.croak.croak.rest.UserResource;
 
-public class Home {
+public class Index {
 
   @Inject
   private UserResource userResource;

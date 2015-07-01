@@ -38,6 +38,12 @@ public class CroakResourceImpl implements CroakResource {
   }
 
   @Override
+  public List<Croak> getCroaksForUser(String username) {
+    logger.info("* getCroaksForUsers called");
+    return dao.getCroaksForUser(username);
+  }
+
+  @Override
   public Croak getCroak(@PathParam("id") Long id) {
     logger.info("* Received id in getCroak: "+id);
     return dao.getCroak(id);

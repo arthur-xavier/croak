@@ -34,13 +34,13 @@ public class UserResourceImpl implements UserResource {
 
   @Override
   public Response createUser(User user) {
-    // TODO: implement this
+    // TODO: implement com.croak.croak.rest.UserResourceImpl.createUser
     return null;
   }
 
   @Override
   public Response updateUser(User user) {
-    // TODO: implement this
+    // TODO: implement com.croak.croak.rest.UserResourceImpl.updateUser
     return null;
   }
 }

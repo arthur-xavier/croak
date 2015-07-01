@@ -23,6 +23,7 @@
   </head>
 
   <body>
+
     <!-- NAV -->
     <nav class="navbar-fixed green">
       <div class="nav-wrapper">
@@ -35,7 +36,6 @@
         </ul>
         <ul class="right">
           <li><a href="#/search"><i class="mdi-action-search"></i></a></li>
-          <li><a href="#" class="dropbdown-button" data-activates="more"><i class="mdi-navigation-more-vert"></i></a></li>
         </ul>
         <div class="row hide-on-med-and-up">
           <div class="col s12">
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <!-- SECTION -->
+    <!-- BODY SECTION -->
     <section class="container" style="padding-top: 20px">
       <t:body />
     </section>
