@@ -2,6 +2,36 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-  <p>Friends</p>
+  <!-- FOLLOWING -->
+  <div class="row">
+    <div class="col s12">
+      <div class="collection with-header z-depth-0">
+        <div class="collection-header"><h4>Following</h4></div>
+        <t:loop source="subscriptions" value="user">
+          <a href="/@${user.username}" class="collection-item avatar">
+            <div class="avatar circle" style="background-image: url('${user.avatar}')"></div>
+            <span class="title">${user.firstName} ${user.lastName}</span>
+            <p class="grey-text small">@${user.username}</p>
+          </a>
+        </t:loop>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOLLOWERS -->
+  <div class="row">
+    <div class="col s12">
+      <div class="collection with-header z-depth-0">
+        <div class="collection-header"><h4>Followers</h4></div>
+        <t:loop source="followers" value="user">
+          <a href="/@${user.username}" class="collection-item avatar">
+            <div class="avatar circle" style="background-image: url('${user.avatar}')"></div>
+            <span class="title">${user.firstName} ${user.lastName}</span>
+            <p class="grey-text small">@${user.username}</p>
+          </a>
+        </t:loop>
+      </div>
+    </div>
+  </div>
 
 </html>

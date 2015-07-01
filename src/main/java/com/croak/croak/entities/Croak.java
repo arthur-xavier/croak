@@ -68,6 +68,10 @@ public class Croak {
   }
 
 
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   public void setText(String text) {
     this.text = text;
   }

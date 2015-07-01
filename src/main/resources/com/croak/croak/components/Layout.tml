@@ -18,6 +18,8 @@
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/packery.pkgd.min.js"></script>
+    <script type="text/javascript" src="js/layout.js"></script>
+    <script type="text/javascript" src="js/croak.js"></script>
   </head>
 
   <body>
@@ -55,11 +57,18 @@
       </button>
     </div>
 
-    <!-- MODAL -->
+    <!-- WRITE CROAK MODAL -->
     <div id="croak-modal" class="modal">
+      <div id="croak-modal-preloader" class="preloader-wrapper big active hide">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left"><div class="circle"></div></div>
+          <div class="gap-patch"><div class="circle"></div></div>
+          <div class="circle-clipper right"><div class="circle"></div></div>
+        </div>
+      </div>
       <div class="modal-content">
         <h4>Write croak</h4>
-        <div class="row">
+        <div id="croak-modal-form" class="row">
           <div class="input-field col s12">
             <form id="croak-form">
               <textarea id="textarea" class="materialize-textarea" length="150"></textarea>

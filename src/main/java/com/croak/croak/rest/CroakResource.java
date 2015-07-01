@@ -2,7 +2,9 @@ package com.croak.croak.rest;
 
 import java.util.List;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -21,8 +23,17 @@ public interface CroakResource {
    * @return list of all saved croaks
    */
   @GET
-  @Produces("application/json")
+  @Produces(MediaType.APPLICATION_JSON)
   List<Croak> getCroaks();
+
+  /**
+   * Return the list of croaks created by @username
+   * @return list of croaks created by @username
+   */
+  @GET
+  @Path("@{username}")
+  @Produces(MediaType.APPLICATION_JSON)
+  List<Croak> getCroaksByUser(@PathParam("username") String username);
 
   /**
    * Find a croak with a specific id number
@@ -31,20 +42,29 @@ public interface CroakResource {
    */
   @GET
   @Path("{id}")
-  @Produces("application/json")
+  @Produces(MediaType.APPLICATION_JSON)
   Croak getCroak(@PathParam("id") Long id);
 
   /**
    *
    */
   @POST
-  @Consumes("application/json")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
   Response createCroak(Croak croak);
 
   /**
    *
    */
   @PUT
-  @Consumes("application/json")
+  @Consumes(MediaType.APPLICATION_JSON)
   Response updateCroak(Croak croak);
+
+  /**
+   *
+   */
+  @DELETE
+  @Path("{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  Response deleteCroak(@PathParam("id") Long id);
 }

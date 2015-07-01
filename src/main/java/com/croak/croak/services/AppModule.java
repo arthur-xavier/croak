@@ -16,11 +16,6 @@ import org.apache.tapestry5.services.RequestHandler;
 import org.apache.tapestry5.services.Response;
 import org.slf4j.Logger;
 
-import com.croak.croak.rest.CroakResource;
-import com.croak.croak.rest.CroakResourceImpl;
-import com.croak.croak.rest.UserResource;
-import com.croak.croak.rest.UserResourceImpl;
-
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
  * configure and extend Tapestry, or to place your own service definitions.
@@ -30,8 +25,8 @@ public class AppModule
 
     @Contribute(javax.ws.rs.core.Application.class)
     public static void configureRestResources(Configuration<Object> singletons,
-      CroakResource croakResource,
-      UserResource userResource)
+      com.croak.croak.rest.CroakResource croakResource,
+      com.croak.croak.rest.UserResource userResource)
     {
         singletons.add(croakResource);
         singletons.add(userResource);
@@ -41,8 +36,11 @@ public class AppModule
     {
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
-        binder.bind(CroakResource.class, CroakResourceImpl.class);
-        binder.bind(UserResource.class, UserResourceImpl.class);
+        binder.bind(com.croak.croak.rest.CroakResource.class, com.croak.croak.rest.CroakResourceImpl.class);
+        binder.bind(com.croak.croak.rest.UserResource.class, com.croak.croak.rest.UserResourceImpl.class);
+
+        binder.bind(com.croak.croak.dao.CroakDAO.class, com.croak.croak.dao.CroakDAOImpl.class);
+        binder.bind(com.croak.croak.dao.UserDAO.class, com.croak.croak.dao.UserDAOImpl.class);
 
         // Make bind() calls on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation

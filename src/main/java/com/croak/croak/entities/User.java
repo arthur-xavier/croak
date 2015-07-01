@@ -25,6 +25,7 @@ public class User {
   @Column(nullable=false,unique=true)
   private String email;
   private String avatar;
+  private String quote;
 
   // set of users who User follows
   @ManyToMany(fetch = FetchType.LAZY)
@@ -46,6 +47,18 @@ public class User {
 
   /**
    * Create a new instance and set the username, first and last names
+   * @param username login name for user
+   * @param firstName user's first name
+   * @param lastName user's last name
+   */
+  public User(final String username, final String firstName, final String lastName) {
+    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  /**
+   * Create a new instance and set the username, first and last names and avatar
    * @param username login name for user
    * @param firstName user's first name
    * @param lastName user's last name
@@ -84,6 +97,10 @@ public class User {
     return avatar;
   }
 
+  public String getQuote() {
+    return quote;
+  }
+
   public Set<User> getSubscriptions() {
     return this.subscriptions;
   }
@@ -96,6 +113,9 @@ public class User {
       getSubscriptions().add(subscription);
   }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public void setUsername(String username) {
     this.username = username;
@@ -119,6 +139,10 @@ public class User {
 
   public void setAvatar(String avatar) {
     this.avatar = avatar;
+  }
+
+  public void setQuote(String quote) {
+    this.quote = quote;
   }
 
   /**

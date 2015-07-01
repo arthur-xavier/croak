@@ -75,25 +75,27 @@ $(document).ready(function() {
 
   // populate croaks
   //croaks.forEach(createCroak);
-  $.ajax({
-    url: '/croak/rest/croak',
-    contentType: 'application/json',
-    method: 'GET',
-    beforeSend: function() {
-      $croaks.html('<div class="col s12 center">' +
-                     '<div class="preloader-wrapper big active">' +
-                       '<div class="spinner-layer spinner-blue-only">' +
-                         '<div class="circle-clipper left"><div class="circle"></div></div>' +
-                         '<div class="gap-patch"><div class="circle"></div></div>' +
-                         '<div class="circle-clipper right"><div class="circle"></div></div>' +
+  var loadCroaks = function(croak) {
+    $.ajax({
+      url: '/croak/rest/croak',
+      contentType: 'application/json',
+      method: 'GET',
+      beforeSend: function() {
+        $croaks.html('<div class="col s12 center">' +
+                       '<div class="preloader-wrapper big active">' +
+                         '<div class="spinner-layer spinner-blue-only">' +
+                           '<div class="circle-clipper left"><div class="circle"></div></div>' +
+                           '<div class="gap-patch"><div class="circle"></div></div>' +
+                           '<div class="circle-clipper right"><div class="circle"></div></div>' +
+                         '</div>' +
                        '</div>' +
-                     '</div>' +
-                   '</div>');
-    }
-  }).done(function(croaks) {
-    $croaks.html('');
-    croaks.forEach(createCroak);
-  });
+                     '</div>');
+      }
+    }).done(function(croaks) {
+      $croaks.html('');
+      croaks.forEach(createCroak);
+    });
+  };
 
   // croak form submit
   $("#croak-form").submit(function(e) {
@@ -104,14 +106,14 @@ $(document).ready(function() {
       alert("Your croak can have maximal 150 characters.");
     } else {
       // spawn croak
-      createCroak({
+      /*createCroak({
         big: true,
         text: $("#textarea").val(),
         color: $("#croak-modal").css('background-color'),
         avatar: 'img/mustermann.jpg',
         author: 'Max Mustermann',
         user: 'mustermann'
-      });
+      });*/
       $("#croak-modal").closeModal();
     }
   });
