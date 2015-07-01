@@ -41,6 +41,7 @@ public interface CroakResource {
    */
   @GET
   @Path("for/{username}")
+  @Produces(MediaType.APPLICATION_JSON)
   List<Croak> getCroaksForUser(@PathParam("username") String username);
 
   /**

@@ -10,8 +10,7 @@ import com.croak.croak.exceptions.UserNotFoundException;
 
 public class UserDAOImpl implements UserDAO {
 
-  private Map<Long, User> users = new HashMap<Long, User>();
-  private Long id = 0L;
+  private Map<String, User> users = new HashMap<String, User>();
 
   public UserDAOImpl() {
     User mustermann = new User("mustermann", "Max", "Mustermann", "img/mustermann.jpg");
@@ -31,7 +30,7 @@ public class UserDAOImpl implements UserDAO {
     mustermann.addSubscription(dawson);
     mustermann.addSubscription(chan);
     mustermann.addSubscription(waters);
-    mustermann.addSubscription(unge);
+    //mustermann.addSubscription(unge);
 
     dawson.addSubscription(mustermann);
     chan.addSubscription(mustermann);
@@ -52,25 +51,19 @@ public class UserDAOImpl implements UserDAO {
   }
 
   @Override
-  public User getUser(Long id) {
-    return users.get(id);
-  }
-
-  @Override
   public User getUser(String username) {
     return users.get(username);
   }
 
   @Override
   public User saveUser(User user) {
-    user.setId(this.id++);
-    users.put(user.getId(), user);
+    users.put(user.getUsername(), user);
     return user;
   }
 
   @Override
-  public void removeUser(Long id) throws UserNotFoundException {
-    if(users.remove(id) == null)
-      throw new UserNotFoundException("User with id '" + id + "' not found.");
+  public void removeUser(String username) throws UserNotFoundException {
+    if(users.remove(username) == null)
+      throw new UserNotFoundException("User with username @" + username + " not found.");
   }
 }

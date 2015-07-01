@@ -27,9 +27,9 @@ public class UserResourceImpl implements UserResource {
   }
 
   @Override
-  public User getUser(@PathParam("id") Long id) {
-    logger.info("* Received id in 'getCroak': "+id);
-    return dao.getUser(id);
+  public User getUser(@PathParam("username") String username) {
+    logger.info("* Received username in getCroak: @" + username);
+    return dao.getUser(username);
   }
 
   @Override

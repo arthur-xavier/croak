@@ -23,6 +23,12 @@ public interface CroakDAO {
   public List<Croak> getCroaksByUser(String username);
 
   /**
+   * Gets the list of croaks ordered by id, created by users who @username follows
+   * @return populated list of croaks @username can see
+   */
+  public List<Croak> getCroaksForUser(String username);
+
+  /**
    * Get a croak based on its unique id.
    * @param id croak identifier (primary key)
    * @return populated croak found

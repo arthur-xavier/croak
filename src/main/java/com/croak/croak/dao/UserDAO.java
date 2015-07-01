@@ -17,13 +17,6 @@ public interface UserDAO {
   public List<User> getUsers();
 
   /**
-   * Get a user based on its unique id.
-   * @param id user identifier (primary key)
-   * @return populated user found
-   */
-  public User getUser(Long id);
-
-  /**
    * Get a user based on its unique username.
    * @param username user username (unique key)
    * @return populated user found
@@ -38,8 +31,8 @@ public interface UserDAO {
   public User saveUser(User user);
 
   /**
-   * Removes a user based on its unique id.
-   * @param id user identifier (primary key)
+   * Removes a user based on its unique username'.
+   * @param username username (unique key)
    */
-  public void removeUser(Long id) throws UserNotFoundException;
+  public void removeUser(String username) throws UserNotFoundException;
 }

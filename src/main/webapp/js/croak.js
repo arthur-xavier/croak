@@ -48,7 +48,7 @@ $(document).ready(function() {
   // load croaks
   var loadCroaks = function(croak) {
     $.ajax({
-      url: '/croak/rest/croak',
+      url: '/croak/rest/croak/for/mustermann',
       contentType: 'application/json',
       method: 'GET',
       beforeSend: function() {

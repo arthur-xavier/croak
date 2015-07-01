@@ -20,9 +20,9 @@ public interface UserResource {
   List<User> getUsers();
 
   @GET
-  @Path("{id}")
+  @Path("{username}")
   @Produces("application/json")
-  User getUser(@PathParam("id") Long id);
+  User getUser(@PathParam("username") String username);
 
   @POST
   @Consumes("application/json")

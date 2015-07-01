@@ -16,6 +16,6 @@ public class Index {
   private User user;
 
   public void onActivate() {
-    this.user = userResource.getUser(0L);
+    this.user = userResource.getUser("mustermann");
   }
 }

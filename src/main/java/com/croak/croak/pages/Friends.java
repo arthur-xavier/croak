@@ -25,7 +25,7 @@ public class Friends {
   private Set<User> subscriptions;
 
   public void onActivate() {
-    this.user = userResource.getUser(0L);
+    this.user = userResource.getUser("mustermann");
     this.subscriptions = this.user.getSubscriptions();
     this.followers = new HashSet<User>();
 

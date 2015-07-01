@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.croak.croak.entities.Croak;
 import com.croak.croak.entities.User;
+import com.croak.croak.dao.UserDAOImpl;
 import com.croak.croak.exceptions.CroakNotFoundException;
 
 public class CroakDAOImpl implements CroakDAO {
@@ -17,6 +18,7 @@ public class CroakDAOImpl implements CroakDAO {
   public CroakDAOImpl() {
     this.saveCroak(new Croak("Test croak #imCroaking", "#fffde7", new User("mustermann", "Max", "Mustermann", "img/mustermann.jpg")));
     this.saveCroak(new Croak("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vestibulum magna orci aliquam. #lipsum #loremIpsum", "#e1f5fe", new User("BarackObama", "Barack", "Obama", "img/barack-obama.jpg")));
+    this.saveCroak(new Croak("Das hier ist nur noch irgendein croak auf #Deutsch", "#fafafa", new User("unge", "Simon", "Unge", "img/simon-unge.jpg")));
   }
 
   public List<Croak> getCroaks() {
@@ -34,8 +36,13 @@ public class CroakDAOImpl implements CroakDAO {
   }
 
   public List<Croak> getCroaksForUser(String username) {
-    // TODO: implement com.croak.croak.dao.CroakDAOImpl.getCroaksForUser
-    return null;
+    List<Croak> cs = new ArrayList<Croak>();
+    User user = (new UserDAOImpl()).getUser(username);
+    cs.addAll(getCroaksByUser(username));
+    for(User u : user.getSubscriptions()) {
+      cs.addAll(getCroaksByUser(u.getUsername()));
+    }
+    return cs;
   }
 
   public Croak getCroak(Long id) {
