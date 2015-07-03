@@ -9,7 +9,6 @@ import org.apache.tapestry5.SymbolConstants;
 /**
  * Layout component for pages of application croak.
  */
-@Import(stylesheet = "context:css/home.css")
 public class Layout {
   /**
    * The page title, for the <title> element and the <h1> element.
@@ -45,6 +44,6 @@ public class Layout {
   }
 
   public String[] getPageNames() {
-    return new String[]{"Index", "Friends", "Profile"};
+    return new String[]{"Home", "Friends", "Profile"};
   }
 }

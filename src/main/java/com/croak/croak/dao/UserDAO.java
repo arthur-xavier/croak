@@ -21,7 +21,7 @@ public interface UserDAO {
    * @param username user username (unique key)
    * @return populated user found
    */
-  public User getUser(String username);
+  public User getUser(String username) throws UserNotFoundException;
 
   /**
    * Saves a user. Handles both insert and update.

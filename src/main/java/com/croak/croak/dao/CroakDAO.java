@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.croak.croak.entities.Croak;
 import com.croak.croak.exceptions.CroakNotFoundException;
+import com.croak.croak.exceptions.UserNotFoundException;
 
 /**
  * Croak Data Access Object interface.
@@ -20,13 +21,13 @@ public interface CroakDAO {
    * Gets a list of croaks ordered by id, filtered by username
    * @return populated list of croaks created by @username
    */
-  public List<Croak> getCroaksByUser(String username);
+  public List<Croak> getCroaksByUser(String username) throws UserNotFoundException;
 
   /**
    * Gets the list of croaks ordered by id, created by users who @username follows
    * @return populated list of croaks @username can see
    */
-  public List<Croak> getCroaksForUser(String username);
+  public List<Croak> getCroaksForUser(String username) throws UserNotFoundException;
 
   /**
    * Get a croak based on its unique id.

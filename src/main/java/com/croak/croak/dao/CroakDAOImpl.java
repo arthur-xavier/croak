@@ -9,6 +9,7 @@ import com.croak.croak.entities.Croak;
 import com.croak.croak.entities.User;
 import com.croak.croak.dao.UserDAOImpl;
 import com.croak.croak.exceptions.CroakNotFoundException;
+import com.croak.croak.exceptions.UserNotFoundException;
 
 public class CroakDAOImpl implements CroakDAO {
 
@@ -16,16 +17,16 @@ public class CroakDAOImpl implements CroakDAO {
   private Long id = 0L;
 
   public CroakDAOImpl() {
-    this.saveCroak(new Croak("Test croak #imCroaking", "#fffde7", new User("mustermann", "Max", "Mustermann", "img/mustermann.jpg")));
-    this.saveCroak(new Croak("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vestibulum magna orci aliquam. #lipsum #loremIpsum", "#e1f5fe", new User("BarackObama", "Barack", "Obama", "img/barack-obama.jpg")));
-    this.saveCroak(new Croak("Das hier ist nur noch irgendein croak auf #Deutsch", "#fafafa", new User("unge", "Simon", "Unge", "img/simon-unge.jpg")));
+    this.saveCroak(new Croak("Test croak #imCroaking", "#fffde7", new User("mustermann", "Max", "Mustermann", "/img/mustermann.jpg")));
+    this.saveCroak(new Croak("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vestibulum magna orci aliquam. #lipsum #loremIpsum", "#e1f5fe", new User("BarackObama", "Barack", "Obama", "/img/barack-obama.jpg")));
+    this.saveCroak(new Croak("Das hier ist nur noch irgendein croak auf #Deutsch", "#fafafa", new User("unge", "Simon", "Unge", "/img/simon-unge.jpg")));
   }
 
   public List<Croak> getCroaks() {
     return new ArrayList<Croak>(croaks.values());
   }
 
-  public List<Croak> getCroaksByUser(String username) {
+  public List<Croak> getCroaksByUser(String username) throws UserNotFoundException {
     List<Croak> cs = new ArrayList<Croak>();
     for(Map.Entry<Long, Croak> entry : croaks.entrySet()) {
       if(entry.getValue().getAuthor().getUsername().equals(username)) {
@@ -35,12 +36,14 @@ public class CroakDAOImpl implements CroakDAO {
     return cs;
   }
 
-  public List<Croak> getCroaksForUser(String username) {
+  public List<Croak> getCroaksForUser(String username) throws UserNotFoundException {
     List<Croak> cs = new ArrayList<Croak>();
     User user = (new UserDAOImpl()).getUser(username);
-    cs.addAll(getCroaksByUser(username));
-    for(User u : user.getSubscriptions()) {
-      cs.addAll(getCroaksByUser(u.getUsername()));
+    for(Map.Entry<Long, Croak> entry : croaks.entrySet()) {
+      if(entry.getValue().getAuthor().getUsername().equals(username)
+          || user.getSubscriptions().contains(entry.getValue().getAuthor())) {
+        cs.add(entry.getValue());
+      }
     }
     return cs;
   }

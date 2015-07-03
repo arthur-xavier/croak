@@ -10,6 +10,7 @@ import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.SymbolConstants;
 
 import com.croak.croak.entities.User;
+import com.croak.croak.exceptions.UserNotFoundException;
 import com.croak.croak.rest.UserResource;
 import com.croak.croak.rest.CroakResource;
 
@@ -32,7 +33,7 @@ public class UserProfile {
   private int croaksNumber;
 
   @BeginRender
-  public void beginRender() {
+  public void beginRender() throws UserNotFoundException {
     this.followingNumber = this.user.getSubscriptions().size();
 
     Set followers = new HashSet<User>();

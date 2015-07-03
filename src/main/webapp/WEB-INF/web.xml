@@ -10,6 +10,11 @@ of where to look for pages, components and mixins. -->
         <param-name>tapestry.app-package</param-name>
         <param-value>com.croak.croak</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>tapestry.context-path</param-name>
+        <param-value></param-value>
+    </context-param>
     <!--
     Specify some additional Modules for two different execution
     modes: development and qa.

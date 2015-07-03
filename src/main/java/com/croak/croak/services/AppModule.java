@@ -10,11 +10,23 @@ import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
+import org.apache.tapestry5.ioc.annotations.Primary;
+import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.apache.tapestry5.services.ComponentSource;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.RequestFilter;
 import org.apache.tapestry5.services.RequestHandler;
 import org.apache.tapestry5.services.Response;
+import org.apache.tapestry5.services.ExceptionReporter;
+import org.apache.tapestry5.services.MarkupRenderer;
+import org.apache.tapestry5.services.MarkupRendererFilter;
+import org.apache.tapestry5.services.RequestExceptionHandler;
+import org.apache.tapestry5.services.ResponseRenderer;
 import org.slf4j.Logger;
+
+import org.tynamo.routing.Route;
+import org.tynamo.routing.services.RouteFactory;
+import org.tynamo.routing.services.RouteProvider;
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
@@ -132,5 +144,41 @@ public class AppModule
         // within the pipeline.
 
         configuration.add("Timing", filter);
+    }
+
+    /**
+    * Decorate Error page
+    * @param logger
+    * @param renderer
+    * @param componentSource
+    * @param productionMode
+    * @param service
+    * @return
+    */
+    public RequestExceptionHandler decorateRequestExceptionHandler(
+              final Logger logger,
+              final ResponseRenderer renderer,
+              final ComponentSource componentSource,
+              @Symbol(SymbolConstants.PRODUCTION_MODE)
+              boolean productionMode,
+              Object service)
+    {
+        //if(!productionMode) { return null; }
+
+        return new RequestExceptionHandler() {
+            public void handleRequestException(Throwable exception)
+            throws IOException {
+                logger.error("Unexpected runtime exception: " + exception.getMessage(), exception);
+                ExceptionReporter error = (ExceptionReporter) componentSource.getPage("Error");
+                error.reportException(exception);
+                renderer.renderPageMarkupResponse("Error");
+            }
+        };
+    }
+
+    @Primary @Contribute(RouteProvider.class)
+    public static void addRoutes(OrderedConfiguration<Route> configuration, RouteFactory routeFactory) {
+        configuration.add("home", routeFactory.create("/", "Home"));
+        configuration.add("viewuser", routeFactory.create("/@{0}", "ViewUser"));
     }
 }

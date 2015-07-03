@@ -13,17 +13,17 @@ public class UserDAOImpl implements UserDAO {
   private Map<String, User> users = new HashMap<String, User>();
 
   public UserDAOImpl() {
-    User mustermann = new User("mustermann", "Max", "Mustermann", "img/mustermann.jpg");
+    User mustermann = new User("mustermann", "Max", "Mustermann", "/img/mustermann.jpg");
     mustermann.setQuote("Totally awesome!");
-    User obama      = new User("BarackObama", "Barack", "Obama", "img/barack-obama.jpg");
+    User obama      = new User("BarackObama", "Barack", "Obama", "/img/barack-obama.jpg");
     obama.setQuote("Yes we can!");
-    User gates      = new User("BillGates", "Bill", "Gates", "img/bill-gates.jpg");
+    User gates      = new User("BillGates", "Bill", "Gates", "/img/bill-gates.jpg");
     gates.setQuote("See? I'm the richest!");
-    User dawson     = new User("JackDawson_pa", "Jack", "Dawson", "img/jack-dawson.jpg");
+    User dawson     = new User("JackDawson_pa", "Jack", "Dawson", "/img/jack-dawson.jpg");
     dawson.setQuote("Jack Dawson loves my big sphinx of quartz");
-    User chan       = new User("EyeOfJackieChan", "Jackie", "Chan", "img/jackie-chan.jpg");
-    User waters     = new User("rogerwaters", "Roger", "Waters", "img/roger-waters.jpg");
-    User unge       = new User("unge", "Simon", "Unge", "img/simon-unge.jpg");
+    User chan       = new User("EyeOfJackieChan", "Jackie", "Chan", "/img/jackie-chan.jpg");
+    User waters     = new User("rogerwaters", "Roger", "Waters", "/img/roger-waters.jpg");
+    User unge       = new User("unge", "Simon", "Unge", "/img/simon-unge.jpg");
 
     mustermann.addSubscription(obama);
     mustermann.addSubscription(gates);
@@ -51,8 +51,11 @@ public class UserDAOImpl implements UserDAO {
   }
 
   @Override
-  public User getUser(String username) {
-    return users.get(username);
+  public User getUser(String username) throws UserNotFoundException {
+    User user = users.get(username);
+    if(user == null)
+      throw new UserNotFoundException("User @" + username + " not found.");
+    return user;
   }
 
   @Override
@@ -64,6 +67,6 @@ public class UserDAOImpl implements UserDAO {
   @Override
   public void removeUser(String username) throws UserNotFoundException {
     if(users.remove(username) == null)
-      throw new UserNotFoundException("User with username @" + username + " not found.");
+      throw new UserNotFoundException("User @" + username + " not found.");
   }
 }

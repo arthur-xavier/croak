@@ -12,14 +12,8 @@
     <meta name="theme-color" content="#4CAF50" />
 
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/packery.pkgd.min.js"></script>
-    <script type="text/javascript" src="js/layout.js"></script>
-    <script type="text/javascript" src="js/croak.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/index.css"  media="screen,projection"/>
   </head>
 
   <body>
@@ -27,7 +21,7 @@
     <!-- NAV -->
     <nav class="navbar-fixed green">
       <div class="nav-wrapper">
-        <t:pagelink page="index" class="brand-logo"><img src="img/croak.png" class="hide-on-small-only" /> Croak</t:pagelink>
+        <t:pagelink page="home" class="brand-logo"><img src="/img/croak.png" class="hide-on-small-only" /> Croak</t:pagelink>
 
         <ul id="menu" class="container hide-on-small-only">
           <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
@@ -88,4 +82,11 @@
     </section>
 
   </body>
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <script type="text/javascript" src="/js/packery.pkgd.min.js"></script>
+  <script type="text/javascript" src="/js/layout.js"></script>
+  <script type="text/javascript" src="/js/croak.js"></script>
 </html>

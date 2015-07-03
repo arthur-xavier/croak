@@ -1,0 +1,26 @@
+<html t:type="layout" title="Croak"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry:parameter">
+
+  <!-- PROFILE -->
+  <div class="row">
+    <div class="col s12">
+      <t:userprofile user="user" />
+    </div>
+  </div>
+
+  <load-croaks data-user="for/${user.username}" />
+
+  <!-- CROAKS -->
+  <div id="croaks" class="row">
+    <div id="croak-preloader" class="col s12 center">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left"><div class="circle"></div></div>
+          <div class="gap-patch"><div class="circle"></div></div>
+          <div class="circle-clipper right"><div class="circle"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

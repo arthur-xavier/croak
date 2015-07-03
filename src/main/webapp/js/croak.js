@@ -46,9 +46,9 @@ $(document).ready(function() {
   };
 
   // load croaks
-  var loadCroaks = function(croak) {
+  var loadCroaks = function(user) {
     $.ajax({
-      url: '/croak/rest/croak/for/mustermann',
+      url: '/rest/croak/' + user,
       contentType: 'application/json',
       method: 'GET',
       beforeSend: function() {
@@ -78,13 +78,13 @@ $(document).ready(function() {
         author: {
           username: "mustermann",
           firstName: "Max", lastName: "Mustermann",
-          avatar: "img/mustermann.jpg"
+          avatar: "/img/mustermann.jpg"
         }
       };
 
       // send POST request
       $.ajax({
-        url: '/croak/rest/croak',
+        url: '/rest/croak',
         contentType: 'application/json',
         method: 'POST',
         data: JSON.stringify(croak),
@@ -97,11 +97,13 @@ $(document).ready(function() {
         console.log("done!");
         $('#croak-modal-preloader').addClass('hide');
         $("#croak-modal").closeModal();
-        window.location.href = "/croak/home";
+        window.location.href = "/";
       });
     }
   });
 
   // populate croaks at page load
-  loadCroaks();
+  if($('load-croaks').length == 1) {
+    loadCroaks($('load-croaks').data('user'));
+  }
 });

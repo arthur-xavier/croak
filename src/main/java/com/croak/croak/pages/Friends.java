@@ -8,6 +8,7 @@ import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.croak.croak.entities.User;
+import com.croak.croak.exceptions.UserNotFoundException;
 import com.croak.croak.rest.UserResource;
 
 public class Friends {
@@ -24,7 +25,7 @@ public class Friends {
   @Property
   private Set<User> subscriptions;
 
-  public void onActivate() {
+  public void onActivate() throws UserNotFoundException {
     this.user = userResource.getUser("mustermann");
     this.subscriptions = this.user.getSubscriptions();
     this.followers = new HashSet<User>();

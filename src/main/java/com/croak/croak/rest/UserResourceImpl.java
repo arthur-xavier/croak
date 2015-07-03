@@ -6,15 +6,12 @@ import java.util.List;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
-import org.apache.log4j.Logger;
-
 import com.croak.croak.dao.UserDAO;
 import com.croak.croak.dao.UserDAOImpl;
 import com.croak.croak.entities.User;
+import com.croak.croak.exceptions.UserNotFoundException;
 
 public class UserResourceImpl implements UserResource {
-
-  private static final Logger logger = Logger.getLogger(UserResourceImpl.class);
 
   private static UserDAO dao = new UserDAOImpl();
 
@@ -22,13 +19,11 @@ public class UserResourceImpl implements UserResource {
 
   @Override
   public List<User> getUsers() {
-    logger.info("* getUsers called");
     return dao.getUsers();
   }
 
   @Override
-  public User getUser(@PathParam("username") String username) {
-    logger.info("* Received username in getCroak: @" + username);
+  public User getUser(@PathParam("username") String username) throws UserNotFoundException {
     return dao.getUser(username);
   }
 

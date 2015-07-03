@@ -24,7 +24,7 @@ div.after-nav { height: 64px; }
   nav.navbar-fixed { height: 104px; }
   div.after-nav { height: 104px; }
 }
-nav #menu li > a { 
+nav #menu li > a {
   font-weight: lighter;
   color: rgba(255, 255, 255, 0.7);
   text-align: center;
@@ -44,13 +44,13 @@ nav .brand-logo > img { width: 32px; margin-right: 6px; vertical-align: middle; 
 }
 
 
-/** 
+/**
  * TABS
  */
 .tabs {
   background: none;
 }
-.tabs .tab { 
+.tabs .tab {
   background: none; }
 .tabs .tab a.active {
   color: #FFFFFF;
@@ -85,18 +85,17 @@ nav .brand-logo > img { width: 32px; margin-right: 6px; vertical-align: middle; 
 /**
  * PROFILE
  */
-div#profile {
-  min-height: 200px;
-}
-div#profile em {
-  font-size: 1.0rem;
-}
 blockquote {
   border-left-color: #EEEEEE;
   margin-top: 0;
   font-style: italic;
 }
-img#avatar { width: 192px; }
+#avatar {
+  width: 16vw;
+  height: 16vw;
+  max-width: 192px;
+  max-height: 192px;
+}
 
 /**
  * MODAL

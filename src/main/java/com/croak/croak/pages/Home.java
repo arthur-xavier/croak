@@ -3,11 +3,12 @@ package com.croak.croak.pages;
 import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.tynamo.routing.annotations.At;
 
 import com.croak.croak.entities.User;
 import com.croak.croak.rest.UserResource;
 
-public class Index {
+public class Home {
 
   @Inject
   private UserResource userResource;
@@ -16,6 +17,10 @@ public class Index {
   private User user;
 
   public void onActivate() {
-    this.user = userResource.getUser("mustermann");
+    try {
+      this.user = userResource.getUser("mustermann");
+    } catch(Exception e) {
+      // failproof
+    }
   }
 }

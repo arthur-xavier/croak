@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import com.croak.croak.entities.Croak;
+import com.croak.croak.exceptions.UserNotFoundException;
 
 @Path("/croak")
 public interface CroakResource {
@@ -33,7 +34,7 @@ public interface CroakResource {
   @GET
   @Path("@{username}")
   @Produces(MediaType.APPLICATION_JSON)
-  List<Croak> getCroaksByUser(@PathParam("username") String username);
+  List<Croak> getCroaksByUser(@PathParam("username") String username) throws UserNotFoundException;
 
   /**
    * Return the list of croaks created by the users who @username follows
@@ -42,7 +43,7 @@ public interface CroakResource {
   @GET
   @Path("for/{username}")
   @Produces(MediaType.APPLICATION_JSON)
-  List<Croak> getCroaksForUser(@PathParam("username") String username);
+  List<Croak> getCroaksForUser(@PathParam("username") String username) throws UserNotFoundException;
 
   /**
    * Find a croak with a specific id number

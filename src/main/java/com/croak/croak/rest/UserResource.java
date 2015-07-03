@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import com.croak.croak.entities.User;
+import com.croak.croak.exceptions.UserNotFoundException;
 
 @Path("/user")
 public interface UserResource {
@@ -22,7 +23,7 @@ public interface UserResource {
   @GET
   @Path("{username}")
   @Produces("application/json")
-  User getUser(@PathParam("username") String username);
+  User getUser(@PathParam("username") String username) throws UserNotFoundException;
 
   @POST
   @Consumes("application/json")
