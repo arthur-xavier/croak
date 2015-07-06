@@ -21,6 +21,11 @@ public interface UserResource {
   List<User> getUsers();
 
   @GET
+  @Path("find/{username}")
+  @Produces("application/json")
+  List<User> findUsers(@PathParam("username") String username) throws UserNotFoundException;
+
+  @GET
   @Path("{username}")
   @Produces("application/json")
   User getUser(@PathParam("username") String username) throws UserNotFoundException;

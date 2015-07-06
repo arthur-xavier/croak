@@ -11,6 +11,8 @@
 #croaks { position:relative; }
 .container > .row .col { padding: 0 8px; }
 
+.croak .card-panel { cursor: pointer; }
+
 .card { position: relative; }
 .card .card-content {
   padding: 12px;

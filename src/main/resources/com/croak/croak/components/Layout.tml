@@ -12,7 +12,9 @@
     <meta name="theme-color" content="#4CAF50" />
 
     <!--Import materialize.css-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/croaks.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="/css/index.css"  media="screen,projection"/>
   </head>
 
@@ -29,7 +31,14 @@
           </li>
         </ul>
         <ul class="right">
-          <li><a href="#/search"><i class="mdi-action-search"></i></a></li>
+          <li class="no-focus">
+            <a href="#/search" data-toggle="search-form"><i class="mdi-action-search"></i></a>
+          </li>
+          <li id="search-form" class="no-focus hide">
+            <form action="/search" method="GET">
+              <input placeholder="Search..." id="search" name="q" type="search" size="28" />
+            </form>
+          </li>
         </ul>
         <div class="row hide-on-med-and-up">
           <div class="col s12">
@@ -65,7 +74,7 @@
         <div id="croak-modal-form" class="row">
           <div class="input-field col s12">
             <form id="croak-form">
-              <textarea id="textarea" class="materialize-textarea" length="150"></textarea>
+              <textarea id="textarea" class="materialize-textarea" length="140"></textarea>
               <label for="textarea">Text</label>
             </form>
           </div>
@@ -88,5 +97,6 @@
   <script type="text/javascript" src="/js/materialize.min.js"></script>
   <script type="text/javascript" src="/js/packery.pkgd.min.js"></script>
   <script type="text/javascript" src="/js/layout.js"></script>
-  <script type="text/javascript" src="/js/croak.js"></script>
+  <script type="text/javascript" src="/js/croaks.js"></script>
+  <script type="text/javascript" src="/js/users.js"></script>
 </html>

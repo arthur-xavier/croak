@@ -23,6 +23,11 @@ public class UserResourceImpl implements UserResource {
   }
 
   @Override
+  public List<User> findUsers(@PathParam("username") String username) throws UserNotFoundException {
+    return dao.findUsers(username);
+  }
+
+  @Override
   public User getUser(@PathParam("username") String username) throws UserNotFoundException {
     return dao.getUser(username);
   }

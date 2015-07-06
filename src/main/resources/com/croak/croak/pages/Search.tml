@@ -1,0 +1,42 @@
+<html t:type="layout" title="Croak - ${query}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+  <!-- Users -->
+  <t:if test="userQuery">
+    <load-users data-query="find/${userQuery}" />
+    <div id="users" class="row">
+      <div class="col s12">
+        <div class="collection with-header z-depth-0">
+          <div class="collection-header"><h4>@${userQuery}</h4></div>
+          <div id="user-preloader" class="col s12 center">
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left"><div class="circle"></div></div>
+                <div class="gap-patch"><div class="circle"></div></div>
+                <div class="circle-clipper right"><div class="circle"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </t:if>
+
+  <t:if test="croakQuery">
+    <load-croaks data-query="find/${croakQuery}" />
+    <div id="croaks" class="row">
+      <div id="croak-preloader" class="col s12 center">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left"><div class="circle"></div></div>
+            <div class="gap-patch"><div class="circle"></div></div>
+            <div class="circle-clipper right"><div class="circle"></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- croaks here -->
+    </div>
+  </t:if>
+
+</html>

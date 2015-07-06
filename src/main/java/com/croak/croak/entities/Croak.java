@@ -13,7 +13,7 @@ public class Croak {
   @GeneratedValue(strategy=GenerationType.AUTO)
   private long id;
 
-  @Column(nullable=false,length=150)
+  @Column(nullable=false,length=140)
   private String text;
 
   @Column(nullable=false,length=7)

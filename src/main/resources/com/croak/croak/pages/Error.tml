@@ -8,7 +8,7 @@
       <div class="error" style="overflow: auto">
         <p>${error}</p>
       </div>
-      <t:pagelink page="index">TRY AGAIN</t:pagelink>
+      <t:pagelink page="home">TRY AGAIN</t:pagelink>
     </div>
   </div>
 </html>

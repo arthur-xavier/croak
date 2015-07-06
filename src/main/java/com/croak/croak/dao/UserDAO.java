@@ -17,6 +17,13 @@ public interface UserDAO {
   public List<User> getUsers();
 
   /**
+   * Searches for users whose username contains the provided String.
+   * @param username string to search for in usernames
+   * @return populated list of users found
+   */
+  public List<User> findUsers(String username) throws UserNotFoundException;
+
+  /**
    * Get a user based on its unique username.
    * @param username user username (unique key)
    * @return populated user found

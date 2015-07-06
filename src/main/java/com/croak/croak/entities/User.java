@@ -4,7 +4,10 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 @Entity
+@JsonSerialize(using = UserSerializer.class)
 public class User {
 
   @Id

@@ -22,6 +22,7 @@ import org.apache.tapestry5.services.MarkupRenderer;
 import org.apache.tapestry5.services.MarkupRendererFilter;
 import org.apache.tapestry5.services.RequestExceptionHandler;
 import org.apache.tapestry5.services.ResponseRenderer;
+import org.apache.tapestry5.services.URLEncoder;
 import org.slf4j.Logger;
 
 import org.tynamo.routing.Route;
@@ -176,9 +177,14 @@ public class AppModule
         };
     }
 
+    public static void contributeServiceOverride(MappedConfiguration<Class, Object> configuration) {
+        configuration.add(URLEncoder.class, new CroakURLEncoderImpl());
+    }
+
     @Primary @Contribute(RouteProvider.class)
     public static void addRoutes(OrderedConfiguration<Route> configuration, RouteFactory routeFactory) {
         configuration.add("home", routeFactory.create("/", "Home"));
         configuration.add("viewuser", routeFactory.create("/@{0}", "ViewUser"));
+        configuration.add("viewcroak", routeFactory.create("/croak/{0}", "ViewCroak"));
     }
 }

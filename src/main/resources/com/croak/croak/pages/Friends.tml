@@ -12,6 +12,7 @@
             <div class="avatar circle" style="background-image: url('${user.avatar}')"></div>
             <span class="title">${user.firstName} ${user.lastName}</span>
             <p class="grey-text small">@${user.username}</p>
+            <span id="delete-friend" class="secondary-content"><i class="material-icons">delete</i></span>
           </a>
         </t:loop>
       </div>

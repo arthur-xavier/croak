@@ -18,12 +18,30 @@ public class CroakDAOImpl implements CroakDAO {
 
   public CroakDAOImpl() {
     this.saveCroak(new Croak("Test croak #imCroaking", "#fffde7", new User("mustermann", "Max", "Mustermann", "/img/mustermann.jpg")));
-    this.saveCroak(new Croak("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vestibulum magna orci aliquam. #lipsum #loremIpsum", "#e1f5fe", new User("BarackObama", "Barack", "Obama", "/img/barack-obama.jpg")));
-    this.saveCroak(new Croak("Das hier ist nur noch irgendein croak auf #Deutsch", "#fafafa", new User("unge", "Simon", "Unge", "/img/simon-unge.jpg")));
+    this.saveCroak(new Croak("Here's what I said yesterday: We are blessed with the most beautiful God-given landscape in the entire world... We have to be good stewards for it.", "#f3e5f5", new User("BarackObama", "Barack", "Obama", "/img/barack-obama.jpg")));
+    this.saveCroak(new Croak("Video fast fertig geschnitten & internet hier ist grad nice, kommt also gleich online :)", "#f1f8e9", new User("unge", "Simon", "Unge", "/img/simon-unge.jpg")));
+    this.saveCroak(new Croak("on some real young trill shit doe. I miss y'all. #Hooligans #Love #Peace #TacoBell #GameOfThrones #Hashtag #HashBrowns", "#fafafa", new User("EyeOfJackieChan", "Jackie", "Chan", "/img/jackie-chan.jpg")));
+    this.saveCroak(new Croak("Hey you! Out there in the cold, getting lonely getting old, can you feel me?", "#fffde7", new User("rogerwaters", "Roger", "Waters", "/img/roger-waters.jpg")));
+    this.saveCroak(new Croak("I think I'm addicted to #croaking #cantstop", "#e1f5fe", new User("BillGates", "Bill", "Gates", "/img/bill-gates.jpg")));
+    this.saveCroak(new Croak("Did you know that croaking is awesome? I really think that you all should try it! #croaking #awesome", "#fff3e0", new User("JackDawson_pa", "Jack", "Dawson", "/img/jack-dawson.jpg")));
   }
 
   public List<Croak> getCroaks() {
     return new ArrayList<Croak>(croaks.values());
+  }
+
+  @Override
+  public List<Croak> findCroaks(String query) throws CroakNotFoundException {
+    List<Croak> cs = new ArrayList<Croak>();
+    for(Map.Entry<Long, Croak> entry : croaks.entrySet()) {
+      if(entry.getValue().getText().toLowerCase().contains(query)) {
+        cs.add(entry.getValue());
+      }
+    }
+    if(cs.size() == 0) {
+      throw new CroakNotFoundException("No croak found containing " + query);
+    }
+    return cs;
   }
 
   public List<Croak> getCroaksByUser(String username) throws UserNotFoundException {
@@ -48,8 +66,11 @@ public class CroakDAOImpl implements CroakDAO {
     return cs;
   }
 
-  public Croak getCroak(Long id) {
-    return croaks.get(id);
+  public Croak getCroak(Long id) throws CroakNotFoundException {
+    Croak croak = croaks.get(id);
+    if(croak == null)
+      throw new CroakNotFoundException("Croak with id " + id + " not found.");
+    return croak;
   }
 
   public Croak saveCroak(Croak croak) {

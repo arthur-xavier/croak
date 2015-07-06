@@ -1,4 +1,4 @@
-// js/croak.js
+// js/croaks.js
 var colors = [
   '#ffffff', '#ffebee', '#fce4ec', '#f3e5f5',
   '#ede7f6', '#e8eaf6', '#e3f2fd', '#e1f5fe',
@@ -20,12 +20,15 @@ var formatCroak = function(text) {
 
 var getCroak = function(croak) {
   var c = (croak.big === true ? "col s12 m8 big" : "col s6 l4");
-  return '<div class="' + c + '"><article class="card-panel z-depth-1-half" style="background-color: ' + (croak.color || randomColor()) + '">' +
+  if(croak.giga === true) c = "col s12 big";
+  return '<div class="croak ' + c + '">' +
+         '<article data-id="' + croak.id + '" class="card-panel z-depth-1-half" style="background-color: ' + (croak.color || randomColor()) + '">' +
          '<p>' + formatCroak($('<div/>').text(croak.text).html()) + '</p>' +
          '<div class="author">' +
          '<div class="left circle avatar" style="background-image: url(' + croak.author.avatar + ')"></div>' +
          '<a href="/@' + croak.author.username + '" class="right tooltipped" data-tooltip="@' + croak.author.username + '">&mdash; ' + croak.author.firstName + ' ' + croak.author.lastName + '</a>' +
-         '</div></article>';
+         '</article>' +
+         '</div>';
 };
 
 $(document).ready(function() {
@@ -42,13 +45,18 @@ $(document).ready(function() {
     $croaks.packery('prepended', $elem.get());
     // tooltips
     $('.tooltipped').tooltip({delay: 50});
+
+    $elem.find('.card-panel').click(function() {
+      window.location.href = "/croak/" + $(this).data('id');
+    });
+
     return $elem;
   };
 
   // load croaks
-  var loadCroaks = function(user) {
+  var loadCroaks = function(query) {
     $.ajax({
-      url: '/rest/croak/' + user,
+      url: '/rest/croak/' + query,
       contentType: 'application/json',
       method: 'GET',
       beforeSend: function() {
@@ -57,8 +65,19 @@ $(document).ready(function() {
     }).done(function(croaks) {
       $('#croak-preloader').addClass('hide');
       $croaks.html('');
-      croaks.forEach(createCroak);
-    });
+      if(croaks.forEach) {
+        croaks[croaks.length - 1].big = true;
+        croaks.forEach(createCroak);
+      } else if(croaks.text) {
+        croaks.giga = true;
+        createCroak(croaks);
+      } else {
+        $croaks.html('<h5 style="text-align: center">Croak <strong>' + query + '</strong> not found.</h5>')
+      }
+    }).error(function() {
+      query = query.split('/').slice(1).join('/');
+      $croaks.html('<h5 style="text-align: center">No croak for <strong>' + query + '</strong> found.</h5>')
+    });;
   };
 
   // croak form submit
@@ -94,7 +113,6 @@ $(document).ready(function() {
           $('#croak-modal-preloader').removeClass('hide');
         }
       }).done(function() {
-        console.log("done!");
         $('#croak-modal-preloader').addClass('hide');
         $("#croak-modal").closeModal();
         window.location.href = "/";
@@ -104,6 +122,6 @@ $(document).ready(function() {
 
   // populate croaks at page load
   if($('load-croaks').length == 1) {
-    loadCroaks($('load-croaks').data('user'));
+    loadCroaks($('load-croaks').data('query'));
   }
 });

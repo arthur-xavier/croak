@@ -28,6 +28,11 @@ public class CroakResourceImpl implements CroakResource {
   }
 
   @Override
+  public List<Croak> findCroaks(@PathParam("query") String query) throws CroakNotFoundException {
+    return dao.findCroaks(query);
+  }
+
+  @Override
   public List<Croak> getCroaksByUser(String username) throws UserNotFoundException {
     return dao.getCroaksByUser(username);
   }
@@ -38,7 +43,7 @@ public class CroakResourceImpl implements CroakResource {
   }
 
   @Override
-  public Croak getCroak(@PathParam("id") Long id) {
+  public Croak getCroak(@PathParam("id") Long id) throws CroakNotFoundException {
     return dao.getCroak(id);
   }
 

@@ -16,6 +16,7 @@ public class CroakSerializer extends JsonSerializer<Croak> {
     throws IOException, JsonProcessingException
   {
     json.writeStartObject();
+    json.writeNumberField("id", croak.getId());
     json.writeStringField("text", croak.getText());
     json.writeStringField("color", croak.getColor());
       json.writeObjectFieldStart("author");

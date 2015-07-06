@@ -18,6 +18,13 @@ public interface CroakDAO {
   public List<Croak> getCroaks();
 
   /**
+   * Searches for croaks whose text contains the provided String.
+   * @param query string to search for in croaks
+   * @return populated list of croaks found
+   */
+  public List<Croak> findCroaks(String query) throws CroakNotFoundException;
+
+  /**
    * Gets a list of croaks ordered by id, filtered by username
    * @return populated list of croaks created by @username
    */
@@ -34,7 +41,7 @@ public interface CroakDAO {
    * @param id croak identifier (primary key)
    * @return populated croak found
    */
-  public Croak getCroak(Long id);
+  public Croak getCroak(Long id) throws CroakNotFoundException;
 
   /**
    * Saves a croak. Handles both insert and update.

@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <load-croaks data-user="@${user.username}" />
+  <load-croaks data-query="@${user.username}" />
 
   <!-- CROAKS -->
   <h5 class="grey-text text-darken-3">Croaks by @${user.username}</h5>

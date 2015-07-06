@@ -43,6 +43,22 @@ nav .brand-logo > img { width: 32px; margin-right: 6px; vertical-align: middle; 
   nav .brand-logo { margin-left: 16px; transform: none; }
 }
 
+nav li.no-focus:hover {
+  background: none;
+}
+
+/** search form **/
+nav ul.right {
+  margin-right: 1rem;
+}
+nav input[type=search] {
+  border-bottom-color: #bdbdbd;
+  height: 2rem;
+}
+nav input[type=search]:focus:not([readonly]) {
+  border-bottom-color: #4db6ac;
+}
+
 
 /**
  * TABS
@@ -103,65 +119,6 @@ blockquote {
 .modal { min-height: 250px; overflow: hidden; }
 .modal-content h4 { margin-bottom: 0; }
 .modal-footer > button { color: #009688; }
-
-
-/**
- * CROAKS
- */
-.z-depth-0, .card-panel, .card {
-  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 2px 0 rgba(0, 0, 0, 0.12);
-  -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 2px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 2px 0 rgba(0, 0, 0, 0.12); }
-
-#croaks { position:relative; }
-.container > .row .col { padding: 0 8px; }
-
-.card { position: relative; }
-.card .card-content {
-  padding: 12px;
-  margin-bottom: 0;
-}
-
-.card-panel {
-  position: relative;
-  font-size: 20px;
-  font-weight: 200;
-  padding: 20px 12px 12px;
-  margin: 8px 0;
-}
-.card-panel p { margin: 0; word-wrap: break-word; }
-.big .card-panel { font-size: 36px; }
-.card-panel .author {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 16px;
-  height: 48px;
-}
-div.avatar,
-.card-panel .author > .avatar {
-  background-size: cover;
-  background-position: center;
-  width: 48px;
-  height: 48px;
-}
-.card-panel .author > a {
-  margin-top: 16px;
-  color: #424242;
-}
-
-@media only screen and (max-width : 600px) {
-  .container > .row .col { padding: 0 4px; }
-  .card-panel { margin: 4px 0; font-weight: 300; }
-
-  .big .card-panel { font-size: 24px; }
-  .card-panel { font-size: 16px; }
-
-  .card-panel .author { font-size: 12px; height: 32px; }
-  div.avatar,
-  .card-panel .author > .avatar { width: 32px; height: 32px; }
-  .card-panel .author > a { margin-top: 8px; }
-}
-
 
 /**
  * FOOTER

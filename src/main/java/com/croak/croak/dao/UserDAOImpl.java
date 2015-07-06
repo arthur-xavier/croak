@@ -51,6 +51,20 @@ public class UserDAOImpl implements UserDAO {
   }
 
   @Override
+  public List<User> findUsers(String username) throws UserNotFoundException {
+    List<User> us = new ArrayList<User>();
+    for(Map.Entry<String, User> entry : users.entrySet()) {
+      if(entry.getValue().getUsername().toLowerCase().contains(username)) {
+        us.add(entry.getValue());
+      }
+    }
+    if(us.size() == 0) {
+      throw new UserNotFoundException("No user found containing @" + username);
+    }
+    return us;
+  }
+
+  @Override
   public User getUser(String username) throws UserNotFoundException {
     User user = users.get(username);
     if(user == null)
