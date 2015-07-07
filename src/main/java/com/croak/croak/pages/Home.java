@@ -7,6 +7,7 @@ import org.tynamo.routing.annotations.At;
 
 import com.croak.croak.entities.User;
 import com.croak.croak.dao.UserDAO;
+import com.croak.croak.exceptions.UserNotFoundException;
 
 public class Home {
 
@@ -16,11 +17,7 @@ public class Home {
   @Property
   private User user;
 
-  public void onActivate() {
-    try {
-      this.user = userDao.getUser("mustermann");
-    } catch(Exception e) {
-      // failproof
-    }
+  public void onActivate() throws UserNotFoundException {
+    this.user = userDao.getUser("mustermann");
   }
 }

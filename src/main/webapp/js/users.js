@@ -36,9 +36,11 @@ $(document).ready(function() {
       } else if(users.username) {
         createUser(users);
       } else {
+        query = decodeURIComponent(query.split('/').slice(1).join('/'));
         $users.html('<h5 style="text-align: center">User <strong>' + query + '</strong> not found.</h5>')
       }
     }).error(function() {
+      query = decodeURIComponent(query.split('/').slice(1).join('/'));
       $users.html('<h5 style="text-align: center">User <strong>' + query + '</strong> not found.</h5>')
     });
   };

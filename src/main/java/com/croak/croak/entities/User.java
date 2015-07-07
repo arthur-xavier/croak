@@ -11,8 +11,8 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 public class User {
 
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private long id;
+  @GeneratedValue
+  private Long id;
 
   @Column(nullable=false,length=50,unique=true)
   private String username;
@@ -32,8 +32,13 @@ public class User {
 
   // set of users who User follows
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name="friends",joinColumns = { @JoinColumn(name="subscriber") },inverseJoinColumns = @JoinColumn(name="follower"))
+  @JoinTable(name="Friends", joinColumns = { @JoinColumn(name="subscriber") },inverseJoinColumns = @JoinColumn(name="follower"))
   private Set<User> subscriptions = new HashSet<User>();
+
+  // set of users who follow User
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name="Friends", joinColumns = { @JoinColumn(name="follower") },inverseJoinColumns = @JoinColumn(name="subscriber"))
+  private Set<User> followers = new HashSet<User>();
 
   /**
    * Default constructor
@@ -74,6 +79,22 @@ public class User {
     this.avatar = avatar;
   }
 
+  /**
+   * Create a new instance and set the id, username, first and last names and avatar
+   * @param id primary key identification number for user
+   * @param username login name for user
+   * @param firstName user's first name
+   * @param lastName user's last name
+   * @param avatar user's avatar url
+   */
+  public User(final Long id, final String username, final String firstName, final String lastName, final String avatar) {
+    this.id = id;
+    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.avatar = avatar;
+  }
+
   public Long getId() {
     return id;
   }
@@ -107,18 +128,17 @@ public class User {
   public Set<User> getSubscriptions() {
     return this.subscriptions;
   }
+  public Set<User> getFollowers() {
+    return this.followers;
+  }
 
-  /**
-   * Adds a subcription for the user
-   * @param subscription the fully instantiated User to whom U subscribed
-   */
   public void addSubscription(User subscription) {
       getSubscriptions().add(subscription);
   }
-
-  public void setId(Long id) {
-    this.id = id;
+  public void addFollower(User follower) {
+      getFollowers().add(follower);
   }
+
 
   public void setUsername(String username) {
     this.username = username;
@@ -146,6 +166,13 @@ public class User {
 
   public void setQuote(String quote) {
     this.quote = quote;
+  }
+
+  public void setSubscriptions(Set<User> subscriptions) {
+    this.subscriptions = subscriptions;
+  }
+  public void setFollowers(Set<User> followers) {
+    this.followers = followers;
   }
 
   /**

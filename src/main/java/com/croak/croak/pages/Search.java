@@ -24,9 +24,9 @@ public class Search {
   @Property
   private String croakQuery = null;
 
-  public void onActivate() throws Exception{
-    if(query.isEmpty()) throw new Exception("Empty search.");
-    if(query.charAt(0) == '@')
+  public void onActivate() throws Exception {
+    if(this.query.isEmpty()) throw new Exception("Empty search.");
+    if(this.query.charAt(0) == '@')
       this.userQuery = query.substring(1).toLowerCase();
     else
       this.croakQuery = query.toLowerCase();

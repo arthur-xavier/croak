@@ -28,12 +28,6 @@ public class Friends {
   public void onActivate() throws UserNotFoundException {
     this.user = userDao.getUser("mustermann");
     this.subscriptions = this.user.getSubscriptions();
-    this.followers = new HashSet<User>();
-
-    for(User u : userDao.getUsers()) {
-      if(u.getSubscriptions().contains(this.user)) {
-        this.followers.add(u);
-      }
-    }
+    this.followers = this.user.getFollowers();
   }
 }

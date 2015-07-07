@@ -4,12 +4,15 @@ import java.io.IOException;
 
 import org.apache.tapestry5.*;
 import org.apache.tapestry5.SymbolConstants;
+import org.apache.tapestry5.hibernate.HibernateTransactionAdvisor;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.MethodAdviceReceiver;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
+import org.apache.tapestry5.ioc.annotations.Match;
 import org.apache.tapestry5.ioc.annotations.Primary;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.services.ComponentSource;
@@ -52,13 +55,25 @@ public class AppModule
         binder.bind(com.croak.croak.rest.CroakResource.class, com.croak.croak.rest.CroakResourceImpl.class);
         binder.bind(com.croak.croak.rest.UserResource.class, com.croak.croak.rest.UserResourceImpl.class);
 
-        binder.bind(com.croak.croak.dao.CroakDAO.class, com.croak.croak.dao.CroakDAOImpl.class);
-        binder.bind(com.croak.croak.dao.UserDAO.class, com.croak.croak.dao.UserDAOImpl.class);
+        // use Map
+        //binder.bind(com.croak.croak.dao.CroakDAO.class, com.croak.croak.dao.CroakDAOImpl.class);
+        //binder.bind(com.croak.croak.dao.UserDAO.class, com.croak.croak.dao.UserDAOImpl.class);
+
+        // use Hibernate
+        binder.bind(com.croak.croak.dao.CroakDAO.class, com.croak.croak.dao.hibernate.CroakDAOHibernateImpl.class);
+        binder.bind(com.croak.croak.dao.UserDAO.class, com.croak.croak.dao.hibernate.UserDAOHibernateImpl.class);
 
         // Make bind() calls on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation
         // is provided inline, or requires more initialization than simply
         // invoking the constructor.
+    }
+
+    // http://tapestry.apache.org/hibernate-user-guide.html
+    @Match("*DAO")
+    public static void adviseTransactions(HibernateTransactionAdvisor advisor, MethodAdviceReceiver receiver)
+    {
+        advisor.addTransactionCommitAdvice(receiver);
     }
 
     public static void contributeFactoryDefaults(

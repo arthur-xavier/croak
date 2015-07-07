@@ -3,6 +3,7 @@ package com.croak.croak.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
@@ -34,13 +35,11 @@ public class UserResourceImpl implements UserResource {
 
   @Override
   public Response createUser(User user) {
-    // TODO: implement com.croak.croak.rest.UserResourceImpl.createUser
-    return null;
+    return Response.ok(dao.saveUser(user), MediaType.APPLICATION_JSON).build();
   }
 
   @Override
   public Response updateUser(User user) {
-    // TODO: implement com.croak.croak.rest.UserResourceImpl.updateUser
-    return null;
+    return Response.ok(dao.saveUser(user), MediaType.APPLICATION_JSON).build();
   }
 }

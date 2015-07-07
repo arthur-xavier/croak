@@ -17,11 +17,12 @@ public class CroakDeserializer extends JsonDeserializer<Croak> {
     JsonNode node = jp.getCodec().readTree(jp);
     String text = node.get("text").asText();
     String color = node.get("color").asText();
+    Long id = node.get("author").get("id").asLong();
     String username = node.get("author").get("username").asText();
     String firstName = node.get("author").get("firstName").asText();
     String lastName = node.get("author").get("lastName").asText();
     String avatar = node.get("author").get("avatar").asText();
 
-    return new Croak(text, color, new User(username, firstName, lastName, avatar));
+    return new Croak(text, color, new User(id, username, firstName, lastName, avatar));
   }
 }

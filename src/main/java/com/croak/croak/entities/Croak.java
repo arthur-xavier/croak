@@ -16,7 +16,7 @@ public class Croak {
   @Column(nullable=false,length=140)
   private String text;
 
-  @Column(nullable=false,length=7)
+  @Column(nullable=false,length=18)
   private String color;
 
   @ManyToOne(optional=false)

@@ -2,6 +2,8 @@ package com.croak.croak.dao;
 
 import java.util.List;
 
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
+
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.UserNotFoundException;
 
@@ -35,11 +37,13 @@ public interface UserDAO {
    * @param user the user to save
    * @return the persisted user
    */
+  @CommitAfter
   public User saveUser(User user);
 
   /**
    * Removes a user based on its unique username'.
    * @param username username (unique key)
    */
+  @CommitAfter
   public void removeUser(String username) throws UserNotFoundException;
 }

@@ -2,6 +2,8 @@ package com.croak.croak.dao;
 
 import java.util.List;
 
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
+
 import com.croak.croak.entities.Croak;
 import com.croak.croak.exceptions.CroakNotFoundException;
 import com.croak.croak.exceptions.UserNotFoundException;
@@ -48,19 +50,13 @@ public interface CroakDAO {
    * @param croak the croak to save
    * @return the persisted croak
    */
+  @CommitAfter
   public Croak saveCroak(Croak croak);
 
   /**
    * Removes a croak based on its unique id.
    * @param id croak identifier (primary key)
    */
+  @CommitAfter
   public void removeCroak(Long id) throws CroakNotFoundException;
-
-  /**
-   * Searches for a croak contining the words, hashtags or authors
-   * stated in the query.
-   * @param query string containing the words, hashtags or authors to search for
-   * @return populated list of croaks found
-   */
-  public List<Croak> searchCroaks(String query);
 }

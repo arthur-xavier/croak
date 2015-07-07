@@ -12,7 +12,7 @@ var randomColor = function() { return colors[Math.floor(colors.length * Math.ran
 
 var formatCroak = function(text) {
   return text.replace(/(#\w+)/g, function(_, hashtag) {
-    return '<a href="/' + hashtag + '">' + hashtag + '</a>';
+    return '<a href="/search?q=' + encodeURIComponent(hashtag) + '">' + hashtag + '</a>';
   }).replace(/(@\w+)/g, function(_, user) {
     return '<a href="/' + user + '">' + user + '</a>';
   });
@@ -55,6 +55,10 @@ $(document).ready(function() {
 
   // load croaks
   var loadCroaks = function(query) {
+    if(query.split('/').length > 1) {
+      escapedQuery = encodeURIComponent(query.split('/').slice(1).join('/'));
+      query = query.split('/')[0] + '/' + escapedQuery;
+    }
     $.ajax({
       url: '/rest/croak/' + query,
       contentType: 'application/json',
@@ -65,17 +69,18 @@ $(document).ready(function() {
     }).done(function(croaks) {
       $('#croak-preloader').addClass('hide');
       $croaks.html('');
-      if(croaks.forEach) {
+      if(croaks.forEach && croaks.length > 0) {
         croaks[croaks.length - 1].big = true;
         croaks.forEach(createCroak);
       } else if(croaks.text) {
         croaks.giga = true;
         createCroak(croaks);
       } else {
-        $croaks.html('<h5 style="text-align: center">Croak <strong>' + query + '</strong> not found.</h5>')
+        query = decodeURIComponent(query.split('/').slice(1).join('/'));
+        $croaks.html('<h5 style="text-align: center">No croak for <strong>' + query + '</strong> not found.</h5>')
       }
     }).error(function() {
-      query = query.split('/').slice(1).join('/');
+      query = decodeURIComponent(query.split('/').slice(1).join('/'));
       $croaks.html('<h5 style="text-align: center">No croak for <strong>' + query + '</strong> found.</h5>')
     });;
   };
@@ -95,6 +100,7 @@ $(document).ready(function() {
         text: $('#textarea').val(),
         color: $('#croak-modal').css('background-color'),
         author: {
+          id: 1,
           username: "mustermann",
           firstName: "Max", lastName: "Mustermann",
           avatar: "/img/mustermann.jpg"
