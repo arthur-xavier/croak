@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
+import org.hibernate.Session;
+
 import com.croak.croak.entities.Croak;
 import com.croak.croak.entities.User;
 import com.croak.croak.dao.UserDAOImpl;
@@ -15,6 +19,9 @@ public class CroakDAOImpl implements CroakDAO {
 
   private Map<Long, Croak> croaks = new HashMap<Long, Croak>();
   private Long id = 0L;
+
+  @Inject
+  private Session session;
 
   public CroakDAOImpl() {
     this.saveCroak(new Croak("Test croak #imCroaking", "#fffde7", new User("mustermann", "Max", "Mustermann", "/img/mustermann.jpg")));
@@ -27,11 +34,13 @@ public class CroakDAOImpl implements CroakDAO {
   }
 
   public List<Croak> getCroaks() {
+    //return session.createCriteria(Croak.class).list();
     return new ArrayList<Croak>(croaks.values());
   }
 
   @Override
   public List<Croak> findCroaks(String query) throws CroakNotFoundException {
+
     List<Croak> cs = new ArrayList<Croak>();
     for(Map.Entry<Long, Croak> entry : croaks.entrySet()) {
       if(entry.getValue().getText().toLowerCase().contains(query)) {
@@ -73,12 +82,14 @@ public class CroakDAOImpl implements CroakDAO {
     return croak;
   }
 
+  @CommitAfter
   public Croak saveCroak(Croak croak) {
     croak.setId(this.id++);
     croaks.put(croak.getId(), croak);
     return croak;
   }
 
+  @CommitAfter
   public void removeCroak(Long id) throws CroakNotFoundException {
     if(croaks.remove(id) == null)
       throw new CroakNotFoundException("Croak with id '" + id + "' not found.");

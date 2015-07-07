@@ -7,17 +7,17 @@ import org.tynamo.routing.annotations.At;
 
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.UserNotFoundException;
-import com.croak.croak.rest.UserResource;
+import com.croak.croak.dao.UserDAO;
 
 public class ViewUser {
 
   @Inject
-  private UserResource userResource;
+  private UserDAO userDao;
 
   @Property
   private User user;
 
   public void onActivate(String username) throws UserNotFoundException {
-    this.user = userResource.getUser(username);
+    this.user = userDao.getUser(username);
   }
 }

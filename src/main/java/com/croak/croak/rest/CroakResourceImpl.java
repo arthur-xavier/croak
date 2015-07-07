@@ -7,8 +7,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
+import org.apache.tapestry5.ioc.annotations.Inject;
+
 import com.croak.croak.dao.CroakDAO;
-import com.croak.croak.dao.CroakDAOImpl;
 import com.croak.croak.entities.Croak;
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.CroakNotFoundException;
@@ -16,11 +17,8 @@ import com.croak.croak.exceptions.UserNotFoundException;
 
 public class CroakResourceImpl implements CroakResource {
 
-  private static CroakDAO dao = new CroakDAOImpl();
-
-  private static List<Croak> croaks = new ArrayList<Croak>();
-
-  public CroakResourceImpl() {}
+  @Inject
+  private CroakDAO dao;
 
   @Override
   public List<Croak> getCroaks() {

@@ -11,7 +11,6 @@ import org.tynamo.routing.annotations.At;
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.CroakNotFoundException;
 import com.croak.croak.exceptions.UserNotFoundException;
-import com.croak.croak.rest.UserResource;
 
 public class Search {
 
@@ -32,28 +31,4 @@ public class Search {
     else
       this.croakQuery = query.toLowerCase();
   }
-
-  /*@Inject
-  private UserResource userResource;
-  @Inject
-  private CroakResource croakResource;
-
-  @Property
-  private List<User> users;
-  @Property
-  private List<Croak> croaks;
-
-  public void onActivate() throws CroakNotFoundException, UserNotFoundException {
-    if(query.charAt(0) == '@') {
-      this.users = userResource.findUsers(query.substring(1));
-      if(this.users == null) {
-        throw new UserNotFoundException("User " + query + " not found.");
-      }
-    } else {
-      this.croaks = croakResource.findCroaks(query);
-      if(this.croaks == null) {
-        throw new CroakNotFoundException("No croak found containing " + query);
-      }
-    }
-  }*/
 }

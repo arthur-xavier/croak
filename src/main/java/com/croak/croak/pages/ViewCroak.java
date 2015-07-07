@@ -7,17 +7,17 @@ import org.tynamo.routing.annotations.At;
 
 import com.croak.croak.entities.Croak;
 import com.croak.croak.exceptions.CroakNotFoundException;
-import com.croak.croak.rest.CroakResource;
+import com.croak.croak.dao.CroakDAO;
 
 public class ViewCroak {
 
   @Inject
-  private CroakResource croakResource;
+  private CroakDAO croakDao;
 
   @Property
   private Croak croak;
 
   public void onActivate(Long id) throws CroakNotFoundException {
-    this.croak = croakResource.getCroak(id);
+    this.croak = croakDao.getCroak(id);
   }
 }

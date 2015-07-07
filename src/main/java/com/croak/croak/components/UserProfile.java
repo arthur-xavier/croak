@@ -11,15 +11,15 @@ import org.apache.tapestry5.SymbolConstants;
 
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.UserNotFoundException;
-import com.croak.croak.rest.UserResource;
-import com.croak.croak.rest.CroakResource;
+import com.croak.croak.dao.UserDAO;
+import com.croak.croak.dao.CroakDAO;
 
 public class UserProfile {
 
   @Inject
-  private UserResource userResource;
+  private UserDAO userDao;
   @Inject
-  private CroakResource croakResource;
+  private CroakDAO croakDao;
 
   @Parameter(required = true)
   @Property
@@ -37,13 +37,13 @@ public class UserProfile {
     this.followingNumber = this.user.getSubscriptions().size();
 
     Set followers = new HashSet<User>();
-    for(User u : userResource.getUsers()) {
+    for(User u : userDao.getUsers()) {
       if(u.getSubscriptions().contains(this.user)) {
         followers.add(u);
       }
     }
     this.followersNumber = followers.size();
 
-    this.croaksNumber = croakResource.getCroaksByUser(this.user.getUsername()).size();
+    this.croaksNumber = croakDao.getCroaksByUser(this.user.getUsername()).size();
   }
 }

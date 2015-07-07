@@ -6,16 +6,16 @@ import java.util.List;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
+import org.apache.tapestry5.ioc.annotations.Inject;
+
 import com.croak.croak.dao.UserDAO;
-import com.croak.croak.dao.UserDAOImpl;
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.UserNotFoundException;
 
 public class UserResourceImpl implements UserResource {
 
-  private static UserDAO dao = new UserDAOImpl();
-
-  public UserResourceImpl() {}
+  @Inject
+  private UserDAO dao;
 
   @Override
   public List<User> getUsers() {

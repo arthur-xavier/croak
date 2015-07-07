@@ -9,12 +9,12 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.UserNotFoundException;
-import com.croak.croak.rest.UserResource;
+import com.croak.croak.dao.UserDAO;
 
 public class Friends {
 
   @Inject
-  private UserResource userResource;
+  private UserDAO userDao;
 
   @Property
   private User user;
@@ -26,11 +26,11 @@ public class Friends {
   private Set<User> subscriptions;
 
   public void onActivate() throws UserNotFoundException {
-    this.user = userResource.getUser("mustermann");
+    this.user = userDao.getUser("mustermann");
     this.subscriptions = this.user.getSubscriptions();
     this.followers = new HashSet<User>();
 
-    for(User u : userResource.getUsers()) {
+    for(User u : userDao.getUsers()) {
       if(u.getSubscriptions().contains(this.user)) {
         this.followers.add(u);
       }
