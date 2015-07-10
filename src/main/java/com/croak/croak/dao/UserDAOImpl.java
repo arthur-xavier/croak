@@ -83,4 +83,14 @@ public class UserDAOImpl implements UserDAO {
     if(users.remove(username) == null)
       throw new UserNotFoundException("User @" + username + " not found.");
   }
+
+  @Override
+  public void followUser(String username) throws UserNotFoundException {
+    // TODO: implement com.dao.dao.UserDAOImpl.followUser
+  }
+
+  @Override
+  public void unfollowUser(String username) throws UserNotFoundException {
+    // TODO: implement com.dao.dao.UserDAOImpl.unfollowUser
+  }
 }

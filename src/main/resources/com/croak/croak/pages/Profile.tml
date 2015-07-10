@@ -2,6 +2,63 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-  <p>Profile</p>
+  <div id="profile" class="card z-depth-1-half">
+
+    <div id="profile" class="row card-content">
+      <div class="col s3">
+        <div id="avatar" class="left circle avatar" style="background-image: url(${user.avatar})"></div>
+      </div>
+      <form t:type="form" t:id="form" class="col s9" method="POST">
+        <div class="row">
+          <div class="input-field col s12 m10">
+            <input t:type="TextField" t:id="username" disabled="true" class="validate" />
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6 m5">
+            <input t:type="TextField" t:id="firstName" type="text" class="validate" length="50" />
+            <label for="firstName">First name</label>
+          </div>
+          <div class="input-field col s6 m5">
+            <input t:type="TextField" t:id="lastName" type="text" class="validate" length="50" />
+            <label for="lastName">First name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6 m5">
+            <input t:type="PasswordField" t:id="password" type="password" class="validate" />
+            <label for="password">Password</label>
+          </div>
+          <div class="input-field col s6 m5">
+            <input t:type="PasswordField" t:id="confirmPassword" type="password" class="validate" />
+            <label for="confirmPassword">Confirm password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m10">
+            <input t:type="TextField" t:id="email" type="email" class="validate" />
+            <label for="email">E-mail</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m10">
+            <input t:type="TextField" t:id="avatar" type="text" class="validate" />
+            <label for="avatar">Avatar</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m10">
+            <textarea t:type="TextArea" t:id="quote" class="materialize-textarea" length="140"></textarea>
+            <label for="quote">Quote</label>
+          </div>
+        </div>
+        <br />
+        <button type="submit" class="btn green waves-effect waves-light" style="float: right">SUBMIT</button>
+        <br />
+      </form>
+    </div>
+
+  </div>
 
 </html>

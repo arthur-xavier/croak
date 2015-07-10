@@ -8,10 +8,13 @@ import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.tynamo.routing.annotations.At;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.CroakNotFoundException;
 import com.croak.croak.exceptions.UserNotFoundException;
 
+@RequiresAuthentication
 public class Search {
 
   @Property

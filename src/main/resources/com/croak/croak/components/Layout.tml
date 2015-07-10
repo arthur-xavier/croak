@@ -13,9 +13,9 @@
 
     <!--Import materialize.css-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="/css/croaks.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="/css/index.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/croaks.css"  media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/index.css"  media="screen,projection" />
   </head>
 
   <body>
@@ -27,7 +27,7 @@
 
         <ul id="menu" class="container hide-on-small-only">
           <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
-            <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
+            <t:pagelink id="${pageName}" page="prop:pageName">${pageName}</t:pagelink>
           </li>
         </ul>
         <ul class="right">
@@ -36,7 +36,7 @@
           </li>
           <li id="search-form" class="no-focus hide">
             <form action="/search" method="GET">
-              <input placeholder="Search..." id="search" name="q" type="search" size="28" />
+              <input placeholder="Search..." id="search" name="q" type="search" size="24" />
             </form>
           </li>
         </ul>
@@ -62,26 +62,20 @@
 
     <!-- WRITE CROAK MODAL -->
     <div id="croak-modal" class="modal">
-      <div id="croak-modal-preloader" class="preloader-wrapper big active hide">
-        <div class="spinner-layer spinner-blue-only">
-          <div class="circle-clipper left"><div class="circle"></div></div>
-          <div class="gap-patch"><div class="circle"></div></div>
-          <div class="circle-clipper right"><div class="circle"></div></div>
-        </div>
-      </div>
       <div class="modal-content">
         <h4>Write croak</h4>
         <div id="croak-modal-form" class="row">
           <div class="input-field col s12">
-            <form id="croak-form">
-              <textarea id="textarea" class="materialize-textarea" length="140"></textarea>
-              <label for="textarea">Text</label>
+            <form t:id="croakForm" method="POST">
+              <input t:type="Hidden" t:id="color" />
+              <textarea t:type="TextArea" t:id="text" class="materialize-textarea" length="140"></textarea>
+              <label for="text">Text</label>
             </form>
           </div>
         </div>
       </div>
       <div class="modal-footer" style="background: none">
-        <button id="croak-it" type="submit" form="croak-form" class="waves-effect btn-flat" value="Croak it!">Croak it!</button>
+        <button id="croak-it" type="submit" form="croakForm" class="waves-effect btn-flat" value="Croak it!">Croak it!</button>
       </div>
     </div>
 
@@ -94,7 +88,8 @@
 
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
-  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <script>jQuery.noConflict();</script>
+  <script type="text/javascript" src="/js/materialize.js"></script>
   <script type="text/javascript" src="/js/packery.pkgd.min.js"></script>
   <script type="text/javascript" src="/js/layout.js"></script>
   <script type="text/javascript" src="/js/croaks.js"></script>

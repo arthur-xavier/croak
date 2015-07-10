@@ -10,6 +10,7 @@ import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.MethodAdviceReceiver;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Autobuild;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
 import org.apache.tapestry5.ioc.annotations.Match;
@@ -31,6 +32,14 @@ import org.slf4j.Logger;
 import org.tynamo.routing.Route;
 import org.tynamo.routing.services.RouteFactory;
 import org.tynamo.routing.services.RouteProvider;
+import org.tynamo.security.SecuritySymbols;
+import org.tynamo.security.services.SecurityFilterChainFactory;
+import org.tynamo.security.services.impl.SecurityFilterChain;
+import org.tynamo.security.shiro.authc.FormAuthenticationFilter;
+
+import org.apache.shiro.realm.Realm;
+import org.apache.shiro.authz.UnauthenticatedException;
+import com.croak.croak.security.UserRealm;
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
@@ -46,6 +55,23 @@ public class AppModule
     {
         singletons.add(croakResource);
         singletons.add(userResource);
+    }
+
+    @Contribute(org.apache.shiro.web.mgt.WebSecurityManager.class)
+    public static void addRealms(Configuration<Realm> configuration, @Autobuild UserRealm userRealm) {
+      configuration.add(userRealm);
+    }
+    public static void contributeSecurityConfiguration(Configuration<SecurityFilterChain> configuration,
+      SecurityFilterChainFactory factory)
+    {
+      configuration.add(factory.createChain("/login").add(factory.anon()).build());
+      configuration.add(factory.createChain("/assets/**").add(factory.anon()).build());
+      configuration.add(factory.createChain("/css/**").add(factory.anon()).build());
+      configuration.add(factory.createChain("/font/**").add(factory.anon()).build());
+      configuration.add(factory.createChain("/img/**").add(factory.anon()).build());
+      configuration.add(factory.createChain("/js/**").add(factory.anon()).build());
+      configuration.add(factory.createChain("/rest/**").add(factory.anon()).build());
+      //configuration.add(factory.createChain("/**").add(factory.user()).build());
     }
 
     public static void bind(ServiceBinder binder)
@@ -97,6 +123,10 @@ public class AppModule
         // you can extend this list of locales (it's a comma separated series of locale names;
         // the first locale name is the default when there's no reasonable match).
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, "en");
+        // Tynamo's tapestry-security module configuration
+        configuration.add(SecuritySymbols.LOGIN_URL, "/login");
+        configuration.add(SecuritySymbols.UNAUTHORIZED_URL, "/login");
+        configuration.add(SecuritySymbols.SUCCESS_URL, "/index");
     }
 
 
@@ -180,14 +210,16 @@ public class AppModule
               Object service)
     {
         //if(!productionMode) { return null; }
-
         return new RequestExceptionHandler() {
             public void handleRequestException(Throwable exception)
             throws IOException {
                 logger.error("Unexpected runtime exception: " + exception.getMessage(), exception);
-                ExceptionReporter error = (ExceptionReporter) componentSource.getPage("Error");
-                error.reportException(exception);
-                renderer.renderPageMarkupResponse("Error");
+                if(exception.getClass() == UnauthenticatedException.class) {
+                  renderer.renderPageMarkupResponse("Login");
+                } else {
+                  ((ExceptionReporter)componentSource.getPage("Error")).reportException(exception);
+                  renderer.renderPageMarkupResponse("Error");
+                }
             }
         };
     }

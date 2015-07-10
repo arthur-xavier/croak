@@ -10,6 +10,18 @@ body { background-color: #EEEEEE; }
 .small { font-size: 0.9rem; }
 section { margin-bottom: 64px !important; }
 
+.link { cursor: pointer; }
+.collection .collection-item.link {
+  color: #26a69a;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  -ms-transition: 0.25s;
+  transition: 0.25s;
+}
+.collection .collection-item.link:not(.active):hover {
+  background-color: #dddddd;
+}
 
 /**
  * NAV
@@ -106,7 +118,7 @@ blockquote {
   margin-top: 0;
   font-style: italic;
 }
-#avatar {
+#avatar.avatar {
   width: 16vw;
   height: 16vw;
   max-width: 192px;

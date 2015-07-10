@@ -2,6 +2,8 @@ package com.croak.croak.rest;
 
 import java.util.List;
 
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -72,14 +74,14 @@ public interface CroakResource {
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  Response createCroak(Croak croak);
+  Response createCroak(@Context HttpHeaders httpHeaders, Croak croak);
 
   /**
    *
    */
   @PUT
   @Consumes(MediaType.APPLICATION_JSON)
-  Response updateCroak(Croak croak);
+  Response updateCroak(@Context HttpHeaders httpHeaders, Croak croak);
 
   /**
    *
@@ -87,5 +89,5 @@ public interface CroakResource {
   @DELETE
   @Path("{id}")
   @Produces(MediaType.APPLICATION_JSON)
-  Response deleteCroak(@PathParam("id") Long id);
+  Response deleteCroak(@Context HttpHeaders httpHeaders, @PathParam("id") Long id);
 }

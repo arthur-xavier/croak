@@ -1,4 +1,7 @@
 // js/croaks.js
+
+jQuery(function($) {
+
 var colors = [
   '#ffffff', '#ffebee', '#fce4ec', '#f3e5f5',
   '#ede7f6', '#e8eaf6', '#e3f2fd', '#e1f5fe',
@@ -21,6 +24,9 @@ var formatCroak = function(text) {
 var getCroak = function(croak) {
   var c = (croak.big === true ? "col s12 m8 big" : "col s6 l4");
   if(croak.giga === true) c = "col s12 big";
+  croak.author.firstName = croak.author.firstName.split(' ')[0];
+  croak.author.lastName = croak.author.lastName.split(' ');
+  croak.author.lastName = croak.author.lastName[croak.author.lastName.length - 1];
   return '<div class="croak ' + c + '">' +
          '<article data-id="' + croak.id + '" class="card-panel z-depth-1-half" style="background-color: ' + (croak.color || randomColor()) + '">' +
          '<p>' + formatCroak($('<div/>').text(croak.text).html()) + '</p>' +
@@ -32,6 +38,15 @@ var getCroak = function(croak) {
 };
 
 $(document).ready(function() {
+  // FAB click
+  $("#fab").click(function() {
+    $("#textarea").val('');
+    $("#textarea").blur();
+    $("#croak-modal").openModal();
+    var color = randomColor();
+    $("#croak-modal").css('background-color', color);
+    $("#croak-modal input[name=color]").val(color);
+  });
 
   // initialize packery
   var $croaks = $("#croaks").packery({ itemSelector: '.col', gutter: 0 });
@@ -77,34 +92,29 @@ $(document).ready(function() {
         createCroak(croaks);
       } else {
         query = decodeURIComponent(query.split('/').slice(1).join('/'));
-        $croaks.html('<h5 style="text-align: center">No croak for <strong>' + query + '</strong> not found.</h5>')
+        $croaks.html('<h5 style="text-align: center">No croak found for <strong>' + query + '</strong>.</h5>')
       }
     }).error(function() {
       query = decodeURIComponent(query.split('/').slice(1).join('/'));
-      $croaks.html('<h5 style="text-align: center">No croak for <strong>' + query + '</strong> found.</h5>')
+      $croaks.html('<h5 style="text-align: center">No croak found for <strong>' + query + '</strong>.</h5>')
     });;
   };
 
   // croak form submit
   $("#croak-form").submit(function(e) {
-    e.preventDefault();
-
     // invalid croak
-    if($("#textarea").val().length > 150) {
-      alert("Your croak can have maximal 150 characters.");
+    if($("#textarea").val().length > 140) {
+      alert("Your croak can have maximal 140 characters.");
+      e.preventDefault();
+      return false;
     // valid croak
-    } else {
-
+    }
+    return true;
+      /*
       // create croak object
       var croak = {
         text: $('#textarea').val(),
-        color: $('#croak-modal').css('background-color'),
-        author: {
-          id: 1,
-          username: "mustermann",
-          firstName: "Max", lastName: "Mustermann",
-          avatar: "/img/mustermann.jpg"
-        }
+        color: $('#croak-modal').css('background-color')
       };
 
       // send POST request
@@ -122,12 +132,13 @@ $(document).ready(function() {
         $('#croak-modal-preloader').addClass('hide');
         $("#croak-modal").closeModal();
         window.location.href = "/";
-      });
-    }
+      });*/
   });
 
   // populate croaks at page load
   if($('load-croaks').length == 1) {
-    loadCroaks($('load-croaks').data('query'));
+    loadCroaks($('load-croaks').data('query').toString());
   }
+});
+
 });

@@ -28,6 +28,7 @@ public class User {
   @Column(nullable=false,unique=true)
   private String email;
   private String avatar;
+  @Column(length=140)
   private String quote;
 
   // set of users who User follows
@@ -133,10 +134,17 @@ public class User {
   }
 
   public void addSubscription(User subscription) {
-      getSubscriptions().add(subscription);
+    getSubscriptions().add(subscription);
   }
+  public void removeSubscription(User subscription) {
+    getSubscriptions().remove(subscription);
+  }
+
   public void addFollower(User follower) {
       getFollowers().add(follower);
+  }
+  public void removeFollower(User follower) {
+      getFollowers().remove(follower);
   }
 
 

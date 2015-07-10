@@ -1,5 +1,7 @@
 // js/users.js
 
+jQuery(function($) {
+
 var getUser = function(user) {
   return '<a href="/@' + user.username + '" class="collection-item avatar">' +
          '<div class="avatar circle" style="background-image: url(\'' + user.avatar + '\')"></div>' +
@@ -49,4 +51,6 @@ $(document).ready(function() {
   if($('load-users').length == 1) {
     loadUsers($('load-users').data('query'));
   }
+});
+
 });

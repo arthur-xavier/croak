@@ -46,4 +46,19 @@ public interface UserDAO {
    */
   @CommitAfter
   public void removeUser(String username) throws UserNotFoundException;
+
+  /**
+   * Makes the current logged in user follow another user.
+   * Adds the specified user to the subscriptions list of the current user.
+   * @param user the user to follow
+   */
+  @CommitAfter
+  public void followUser(String username) throws UserNotFoundException;
+
+  /**
+   * Removes the specified user from the subscriptions list of the current user.
+   * @param user the user to unfollow
+   */
+  @CommitAfter
+  public void unfollowUser(String username) throws UserNotFoundException;
 }

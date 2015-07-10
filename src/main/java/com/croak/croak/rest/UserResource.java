@@ -2,6 +2,8 @@ package com.croak.croak.rest;
 
 import java.util.List;
 
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,9 +34,19 @@ public interface UserResource {
 
   @POST
   @Consumes("application/json")
-  Response createUser(User user);
+  Response createUser(@Context HttpHeaders httpHeaders, User user);
 
   @PUT
   @Consumes("application/json")
-  Response updateUser(User user);
+  Response updateUser(@Context HttpHeaders httpHeaders, User user);
+
+  @POST
+  @Path("follow/{username}")
+  @Consumes("application/json")
+  Response followUser(@Context HttpHeaders httpHeaders, User user);
+
+  @POST
+  @Path("unfollow/{username}")
+  @Consumes("application/json")
+  Response unfollowUser(@Context HttpHeaders httpHeaders, User user);
 }

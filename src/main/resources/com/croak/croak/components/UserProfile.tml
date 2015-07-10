@@ -1,17 +1,28 @@
 <div id="profile" class="card z-depth-1-half" xmlns="http://www.w3.org/1999/xhtml"
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
     xmlns:p="tapestry:parameter">
+
   <div id="profile" class="row card-content">
     <div class="col s3">
       <div id="avatar" class="left circle avatar" style="background-image: url(${user.avatar})"></div>
     </div>
     <div class="col s9">
-      <i class="mdi-navigation-more-vert right"></i>
-      <a href="profile.html" class="card-title grey-text text-darken-4 tooltipped"
+      <!--<i class="mdi-navigation-more-vert right"></i>-->
+      <t:if test="!self">
+        <t:if test="follows">
+          <t:actionlink t:id="unfollow" context="user.username" id="unfollow" class="btn-flat text-green right">UNFOLLOW</t:actionlink>
+        </t:if>
+        <t:if test="!follows">
+          <t:actionlink t:id="follow" context="user.username" id="follow" class="btn-flat text-green right">FOLLOW</t:actionlink>
+        </t:if>
+      </t:if>
+      <a href="/profile" class="card-title grey-text text-darken-4 tooltipped"
           data-position="bottom" data-tooltip="@${user.username}">
          ${user.firstName} ${user.lastName}
       </a>
-      <blockquote class="grey-text">"Totally awesome!"</blockquote>
+      <t:if test="user.quote">
+        <blockquote class="grey-text">"${user.quote}"</blockquote>
+      </t:if>
 
       <div style="margin-top: 16px">
         <p>Follows ${followingNumber}</p>
@@ -20,4 +31,5 @@
       </div>
     </div>
   </div>
+
 </div>
