@@ -110,29 +110,6 @@ $(document).ready(function() {
     // valid croak
     }
     return true;
-      /*
-      // create croak object
-      var croak = {
-        text: $('#textarea').val(),
-        color: $('#croak-modal').css('background-color')
-      };
-
-      // send POST request
-      $.ajax({
-        url: '/rest/croak',
-        contentType: 'application/json',
-        method: 'POST',
-        data: JSON.stringify(croak),
-        dataType: 'json',
-        beforeSend: function() {
-          $('#croak-modal .modal-content, #croak-modal .modal-footer').addClass('hide');
-          $('#croak-modal-preloader').removeClass('hide');
-        }
-      }).done(function() {
-        $('#croak-modal-preloader').addClass('hide');
-        $("#croak-modal").closeModal();
-        window.location.href = "/";
-      });*/
   });
 
   // populate croaks at page load

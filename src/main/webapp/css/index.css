@@ -23,6 +23,9 @@ section { margin-bottom: 64px !important; }
   background-color: #dddddd;
 }
 
+div.toast .blue-text { margin-right: 0.7rem; }
+div.toast .btn-flat { margin-left: 0; }
+
 /**
  * NAV
  */

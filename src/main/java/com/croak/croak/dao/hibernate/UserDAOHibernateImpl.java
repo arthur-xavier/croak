@@ -41,6 +41,7 @@ public class UserDAOHibernateImpl implements UserDAO {
 
   @Override
   public User saveUser(User user) {
+    // user.setPassword(new Sha256Hash(user).toHex());
     session.persist(user);
     return null;
   }

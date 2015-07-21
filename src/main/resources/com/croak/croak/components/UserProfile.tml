@@ -15,6 +15,9 @@
         <t:if test="!follows">
           <t:actionlink t:id="follow" context="user.username" id="follow" class="btn-flat text-green right">FOLLOW</t:actionlink>
         </t:if>
+        <t:if test="!followsYou">
+          <t:actionlink t:id="invite" context="user.username" id="invite" class="btn-flat text-green right">INVITE</t:actionlink>
+        </t:if>
       </t:if>
       <a href="/profile" class="card-title grey-text text-darken-4 tooltipped"
           data-position="bottom" data-tooltip="@${user.username}">

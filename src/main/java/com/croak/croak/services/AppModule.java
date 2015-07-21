@@ -88,6 +88,7 @@ public class AppModule
         // use Hibernate
         binder.bind(com.croak.croak.dao.CroakDAO.class, com.croak.croak.dao.hibernate.CroakDAOHibernateImpl.class);
         binder.bind(com.croak.croak.dao.UserDAO.class, com.croak.croak.dao.hibernate.UserDAOHibernateImpl.class);
+        binder.bind(com.croak.croak.dao.InvitationDAO.class, com.croak.croak.dao.hibernate.InvitationDAOHibernateImpl.class);
 
         // Make bind() calls on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation

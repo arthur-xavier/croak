@@ -48,8 +48,8 @@ public class CroakDAOHibernateImpl implements CroakDAO {
   @Override
   public List<Croak> getCroaksForUser(String username) throws UserNotFoundException {
     return session.createCriteria(Croak.class)
-                  .createAlias("author", "a")
-                  .createAlias("a.followers", "fs")
+                  .createAlias("author", "a", Criteria.LEFT_JOIN)
+                  .createAlias("a.followers", "fs", Criteria.LEFT_JOIN)
                   .add(Restrictions.disjunction()
                     .add(Restrictions.eq("a.username", username))
                     .add(Restrictions.eq("fs.username", username)))
@@ -72,8 +72,9 @@ public class CroakDAOHibernateImpl implements CroakDAO {
 
   @Override
   public void removeCroak(Long id) throws CroakNotFoundException {
-    Croak croak = new Croak();
-    croak.setId(id);
-    session.delete(croak);
+    session.delete(
+      session.createCriteria(Croak.class)
+             .add(Restrictions.eq("id", id))
+             .uniqueResult());
   }
 }

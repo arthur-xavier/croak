@@ -53,6 +53,14 @@
     </nav>
     <div class="after-nav"></div>
 
+    <!-- INVITATIONS -->
+    <t:loop source="invitations" value="invitation">
+      <span class="hide toast">
+        <a class="blue-text" href="/@${invitation.sender.username}">@${invitation.sender.username}</a> invited you to follow him
+        <a data-id="${invitation.id}" class="btn-flat yellow-text" href="#">Ok</a>
+      </span>
+    </t:loop>
+
     <!-- FAB -->
     <div id="fab" class="fixed-action-btn">
       <button class="btn-floating btn-large waves-effect waves-light green modal-trigger">

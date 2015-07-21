@@ -11,11 +11,14 @@ import org.apache.tapestry5.SymbolConstants;
 
 import org.apache.shiro.SecurityUtils;
 
+import com.croak.croak.entities.Invitation;
 import com.croak.croak.entities.User;
 import com.croak.croak.exceptions.UserNotFoundException;
-import com.croak.croak.dao.UserDAO;
 import com.croak.croak.dao.CroakDAO;
+import com.croak.croak.dao.InvitationDAO;
+import com.croak.croak.dao.UserDAO;
 import com.croak.croak.pages.Friends;
+import com.croak.croak.pages.Home;
 
 public class UserProfile {
 
@@ -23,6 +26,8 @@ public class UserProfile {
   private UserDAO userDao;
   @Inject
   private CroakDAO croakDao;
+  @Inject
+  private InvitationDAO invitationDAO;
 
   @Parameter(required = true)
   @Property
@@ -38,6 +43,8 @@ public class UserProfile {
   @Property
   private boolean follows;
   @Property
+  private boolean followsYou;
+  @Property
   private boolean self;
 
   public Object onActionFromFollow(String username) throws UserNotFoundException {
@@ -50,11 +57,22 @@ public class UserProfile {
     return Friends.class;
   }
 
+  public Object onActionFromInvite(String username) throws UserNotFoundException {
+    Invitation invitation = new Invitation(
+      userDao.getUser((String)SecurityUtils.getSubject().getPrincipal()),
+      userDao.getUser(username)
+    );
+    invitationDAO.saveInvitation(invitation);
+    return Home.class;
+  }
+
   @BeginRender
   public void beginRender() throws UserNotFoundException {
     this.followingNumber = this.user.getSubscriptions().size();
 
-    this.follows = this.user.getFollowers().contains(userDao.getUser((String)SecurityUtils.getSubject().getPrincipal()));
+    User theUser = userDao.getUser((String)SecurityUtils.getSubject().getPrincipal());
+    this.follows = this.user.getFollowers().contains(theUser);
+    this.followsYou = this.user.getSubscriptions().contains(theUser);
     this.self = this.user.getUsername().equals((String)SecurityUtils.getSubject().getPrincipal());
 
     Set followers = new HashSet<User>();

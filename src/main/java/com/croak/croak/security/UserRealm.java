@@ -21,6 +21,7 @@ public class UserRealm extends AuthorizingRealm {
   public UserRealm() {
     setName("UserRealm");
     setCredentialsMatcher(new SimpleCredentialsMatcher());
+    // setCredentialsMatcher(new Sha256CredentialsMatcher());
   }
 
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
